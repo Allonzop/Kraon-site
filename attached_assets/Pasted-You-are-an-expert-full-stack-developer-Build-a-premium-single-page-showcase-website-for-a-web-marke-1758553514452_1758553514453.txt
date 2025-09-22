@@ -1,0 +1,49 @@
+You are an expert full-stack developer. Build a premium single-page showcase website for a web-marketing agency named “KRAON,” optimized for SMEs (small & mid-size businesses) with a high-end look.
+
+GOAL
+- Create a fast, responsive, animated one-page site with a dark, futuristic visual identity derived from KRAON’s logo and moodboards (logo and moodboard images will be provided in /public/assets).
+- Color scheme: black/anthracite + white + metallic greys, with subtle digital accents in electric blue (#3D9BE9) and/or violet (#7A3DE9).
+- Keep the site elegant and premium, not flashy.
+
+TECH
+- Frontend: React + Vite + Tailwind CSS.
+- Animations: Framer Motion (micro-interactions, smooth reveal, parallax in the hero).
+- Icons: Lucide or Heroicons.
+- Forms: Node.js + Express API endpoint using Nodemailer to send emails to allonzopensa@gmail.com.
+- Build as a single repo (frontend + /server). Provide a single `npm run dev` script that starts both via concurrently.
+
+STRUCTURE (single page, anchored navigation)
+1) Header (sticky):
+   - Left: KRAON logo (from /public/assets/logo.png).
+   - Right: nav links (Services, Work, Process, About, Contact) + CTA “Request a Consultation”.
+2) Hero:
+   - Headline: “Premium Digital Marketing for Ambitious SMEs.”
+   - Sub: “Strategy, performance, and design — tailored to your growth.”
+   - Two CTAs: “Get a Proposal” (scroll to contact) and “See Work” (scroll to Work).
+   - Animated background inspired by provided moodboards (dark gradients, subtle glowing blue/violet grid, soft parallax).
+3) Services:
+   - 4–6 concise cards (Strategy, Paid Ads, SEO, Content & Social, Web Design, Analytics).
+   - Each card: icon + 1-line description + hover lift + soft glow.
+4) Work:
+   - 3–4 project tiles (placeholder images or provided moodboard visuals).
+   - On hover: glassmorphism overlay with “View details” animation.
+5) Process:
+   - 4-step timeline: Discover → Plan → Execute → Optimize, animated on scroll.
+6) About:
+   - Short paragraph about KRAON (premium, SME-focused).
+   - 3 trust badges (Years of experience, ROAS/CPA improvements placeholder, Response time).
+   - Small grid of placeholder/team images.
+7) Contact:
+   - Form with fields: Name, Company, Email, Phone (optional), Message, consent checkbox.
+   - Client + server validation, animated feedback, success/error toast.
+   - On submit, POST to `/api/contact` → Express + Nodemailer → send email to `allonzopensa@gmail.com`.
+   - Include `.env` with SMTP config instructions.
+
+ASSETS
+- Use `/public/assets/logo.png` for the KRAON logo.
+- Use `/public/assets/moodboard-*.png` as design inspiration (color accents, textures, background overlays).
+- Ensure background visuals and section dividers reflect the premium futuristic moodboard style.
+
+DELIVERABLE
+- A fully working repo with modern code structure, Tailwind utility classes, Framer Motion animations, and a working contact form.
+- README.md with clear setup instructions.
