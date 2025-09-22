@@ -12,7 +12,16 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           <div className="flex items-center mb-4 md:mb-0">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg mr-3" />
+            <img 
+              src="/assets/logo.png" 
+              alt="KRAON Logo" 
+              className="w-8 h-8 mr-3 object-contain ring-1 ring-white/10 rounded-sm"
+              width="32"
+              height="32"
+              loading="lazy"
+              decoding="async"
+              data-testid="img-logo-footer"
+            />
             <span className="text-xl font-bold text-foreground">KRAON</span>
           </div>
           

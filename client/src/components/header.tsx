@@ -49,8 +49,18 @@ export default function Header() {
             onClick={() => scrollToSection("hero")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            data-testid="button-logo"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg mr-3" />
+            <img 
+              src="/assets/logo.png" 
+              alt="KRAON Logo" 
+              className="w-8 h-8 md:w-10 md:h-10 mr-3 object-contain ring-1 ring-white/10 rounded-sm"
+              width="32"
+              height="32"
+              loading="eager"
+              decoding="async"
+              data-testid="img-logo"
+            />
             <span className="text-xl font-bold text-foreground">KRAON</span>
           </motion.div>
 
