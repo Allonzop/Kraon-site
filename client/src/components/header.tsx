@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/i18n";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,11 +26,11 @@ export default function Header() {
   };
 
   const navItems = [
-    { name: "Services", id: "services" },
-    { name: "Work", id: "work" },
-    { name: "Process", id: "process" },
-    { name: "About", id: "about" },
-    { name: "Contact", id: "contact" },
+    { name: t("nav.services"), id: "services" },
+    { name: t("nav.work"), id: "work" },
+    { name: t("nav.process"), id: "process" },
+    { name: t("nav.about"), id: "about" },
+    { name: t("nav.contact"), id: "contact" },
   ];
 
   return (
@@ -69,7 +71,7 @@ export default function Header() {
             <div className="flex items-center space-x-8">
               {navItems.map((item) => (
                 <button
-                  key={item.name}
+                  key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                   data-testid={`nav-${item.id}`}
@@ -77,12 +79,24 @@ export default function Header() {
                   {item.name}
                 </button>
               ))}
+              
+              {/* Language Toggle */}
+              <button
+                onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+                className="flex items-center space-x-1 text-muted-foreground hover:text-primary transition-colors duration-200 px-2 py-1 rounded"
+                data-testid="language-toggle"
+                title={language === "en" ? "Switch to French" : "Passer en anglais"}
+              >
+                <Globe className="w-4 h-4" />
+                <span className="text-sm font-medium">{language.toUpperCase()}</span>
+              </button>
+              
               <Button
                 onClick={() => scrollToSection("contact")}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:glow-blue"
                 data-testid="button-consultation"
               >
-                Request Consultation
+                {t("nav.consultation")}
               </Button>
             </div>
           </nav>
@@ -108,7 +122,7 @@ export default function Header() {
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
                 <button
-                  key={item.name}
+                  key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-primary transition-colors"
                   data-testid={`nav-mobile-${item.id}`}
@@ -116,12 +130,23 @@ export default function Header() {
                   {item.name}
                 </button>
               ))}
+              
+              {/* Mobile Language Toggle */}
+              <button
+                onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+                className="flex items-center space-x-2 w-full text-left px-3 py-2 text-muted-foreground hover:text-primary transition-colors"
+                data-testid="language-toggle-mobile"
+              >
+                <Globe className="w-4 h-4" />
+                <span>{language === "en" ? "Français" : "English"}</span>
+              </button>
+              
               <Button
                 onClick={() => scrollToSection("contact")}
                 className="w-full mt-2 bg-primary hover:bg-primary/90 text-primary-foreground"
                 data-testid="button-consultation-mobile"
               >
-                Request Consultation
+                {t("nav.consultation")}
               </Button>
             </div>
           </motion.div>
