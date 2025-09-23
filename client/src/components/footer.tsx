@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n";
 
 export default function Footer() {
+  const { t } = useLanguage();
+  
   return (
     <footer className="bg-muted/30 border-t border-border py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,8 +29,8 @@ export default function Footer() {
           </div>
           
           <div className="text-center md:text-right">
-            <p className="text-muted-foreground mb-2">Premium Digital Marketing for Ambitious SMEs</p>
-            <p className="text-sm text-muted-foreground">© 2024 KRAON. All rights reserved.</p>
+            <p className="text-muted-foreground mb-2">{t("footer.tagline")}</p>
+            <p className="text-sm text-muted-foreground">{t("footer.rights")}</p>
           </div>
         </motion.div>
       </div>

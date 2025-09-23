@@ -1,19 +1,24 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n";
 
-const trustBadges = [
-  { value: "5+", label: "Years Experience" },
-  { value: "400%", label: "Avg ROAS Increase" },
-  { value: "<24h", label: "Response Time" }
-];
-
-const teamMembers = [
-  { name: "Sarah Chen", role: "Strategy Director", gradient: "from-primary to-accent" },
-  { name: "Marcus Rivera", role: "Performance Lead", gradient: "from-accent to-primary" },
-  { name: "Emma Thompson", role: "Creative Director", gradient: "from-primary to-secondary" },
-  { name: "Alex Kumar", role: "Analytics Specialist", gradient: "from-secondary to-accent" }
-];
+// Data will be generated using translations
 
 export default function About() {
+  const { t } = useLanguage();
+
+  const trustBadges = [
+    { value: t("about.badge1.value"), label: t("about.badge1.label") },
+    { value: t("about.badge2.value"), label: t("about.badge2.label") },
+    { value: t("about.badge3.value"), label: t("about.badge3.label") }
+  ];
+
+  const teamMembers = [
+    { name: t("about.team1.name"), role: t("about.team1.role"), gradient: "from-primary to-accent" },
+    { name: t("about.team2.name"), role: t("about.team2.role"), gradient: "from-accent to-primary" },
+    { name: t("about.team3.name"), role: t("about.team3.role"), gradient: "from-primary to-secondary" },
+    { name: t("about.team4.name"), role: t("about.team4.role"), gradient: "from-secondary to-accent" }
+  ];
+
   return (
     <section id="about" className="py-20 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,12 +30,14 @@ export default function About() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-              About <span className="gradient-text">KRAON</span>
+              {t("about.title").includes("About") ? (
+                <>About <span className="gradient-text">KRAON</span></>
+              ) : (
+                <><span className="gradient-text">{t("about.title")}</span></>
+              )}
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              We're a premium digital marketing agency exclusively focused on ambitious SMEs. 
-              Our data-driven approach and cutting-edge strategies have helped hundreds of businesses 
-              scale from startup to market leader. We don't just run campaigns—we build growth engines.
+              {t("about.description")}
             </p>
             
             {/* Trust badges */}

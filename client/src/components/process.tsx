@@ -1,38 +1,43 @@
 import { motion } from "framer-motion";
 import { Search, Map, Rocket, TrendingUp } from "lucide-react";
+import { useLanguage } from "@/lib/i18n";
 
-const steps = [
-  {
-    icon: Search,
-    title: "Discover",
-    description: "Deep-dive analysis of your business, market, and opportunities",
-    timeline: "Week 1-2",
-    color: "primary"
-  },
-  {
-    icon: Map,
-    title: "Plan",
-    description: "Strategic roadmap with clear milestones and KPI targets",
-    timeline: "Week 2-3",
-    color: "accent"
-  },
-  {
-    icon: Rocket,
-    title: "Execute",
-    description: "Implementation of campaigns with real-time monitoring",
-    timeline: "Week 4+",
-    color: "primary"
-  },
-  {
-    icon: TrendingUp,
-    title: "Optimize",
-    description: "Continuous improvement based on data and performance insights",
-    timeline: "Ongoing",
-    color: "accent"
-  }
-];
+// Steps data will be generated using translations
 
 export default function Process() {
+  const { t } = useLanguage();
+
+  const steps = [
+    {
+      icon: Search,
+      title: t("process.discover.title"),
+      description: t("process.discover.desc"),
+      timeline: t("process.discover.timeline"),
+      color: "primary"
+    },
+    {
+      icon: Map,
+      title: t("process.plan.title"),
+      description: t("process.plan.desc"),
+      timeline: t("process.plan.timeline"),
+      color: "accent"
+    },
+    {
+      icon: Rocket,
+      title: t("process.execute.title"),
+      description: t("process.execute.desc"),
+      timeline: t("process.execute.timeline"),
+      color: "primary"
+    },
+    {
+      icon: TrendingUp,
+      title: t("process.optimize.title"),
+      description: t("process.optimize.desc"),
+      timeline: t("process.optimize.timeline"),
+      color: "accent"
+    }
+  ];
+
   return (
     <section id="process" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,10 +49,14 @@ export default function Process() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Our <span className="gradient-text">Process</span>
+            {t("process.title").includes("Our") ? (
+              <>Our <span className="gradient-text">Process</span></>
+            ) : (
+              <><span className="gradient-text">{t("process.title")}</span></>
+            )}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A proven methodology that delivers consistent results for our clients
+            {t("process.subtitle")}
           </p>
         </motion.div>
 

@@ -1,37 +1,42 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n";
 
-const projects = [
-  {
-    id: 1,
-    title: "TechFlow Solutions",
-    category: "E-commerce",
-    result: "350% ROAS increase in 6 months",
-    gradient: "from-primary/20 to-accent/20"
-  },
-  {
-    id: 2,
-    title: "DataViz Pro",
-    category: "SaaS",
-    result: "5x lead generation growth",
-    gradient: "from-accent/20 to-primary/20"
-  },
-  {
-    id: 3,
-    title: "MedTech Innovations",
-    category: "Healthcare",
-    result: "200% organic traffic increase",
-    gradient: "from-primary/20 to-secondary/20"
-  },
-  {
-    id: 4,
-    title: "CryptoWave Exchange",
-    category: "Fintech",
-    result: "10x conversion rate optimization",
-    gradient: "from-accent/20 to-secondary/20"
-  }
-];
+// Projects data will be generated using translations
 
 export default function Work() {
+  const { t } = useLanguage();
+
+  const projects = [
+    {
+      id: 1,
+      title: t("work.project1.title"),
+      category: t("work.project1.category"),
+      result: t("work.project1.result"),
+      gradient: "from-primary/20 to-accent/20"
+    },
+    {
+      id: 2,
+      title: t("work.project2.title"),
+      category: t("work.project2.category"),
+      result: t("work.project2.result"),
+      gradient: "from-accent/20 to-primary/20"
+    },
+    {
+      id: 3,
+      title: t("work.project3.title"),
+      category: t("work.project3.category"),
+      result: t("work.project3.result"),
+      gradient: "from-primary/20 to-secondary/20"
+    },
+    {
+      id: 4,
+      title: t("work.project4.title"),
+      category: t("work.project4.category"),
+      result: t("work.project4.result"),
+      gradient: "from-accent/20 to-secondary/20"
+    }
+  ];
+
   return (
     <section id="work" className="py-20 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,10 +48,14 @@ export default function Work() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Featured <span className="gradient-text">Work</span>
+            {t("work.title").includes("Featured") ? (
+              <>Featured <span className="gradient-text">Work</span></>
+            ) : (
+              <><span className="gradient-text">{t("work.title")}</span></>
+            )}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Case studies of transformative digital campaigns for ambitious brands
+            {t("work.subtitle")}
           </p>
         </motion.div>
 
@@ -84,7 +93,7 @@ export default function Work() {
                     className="bg-white/20 backdrop-blur-sm border border-white/20 text-white px-6 py-2 rounded-lg font-medium hover:bg-white/30 transition-colors"
                     data-testid={`button-view-details-${project.id}`}
                   >
-                    View Details
+                    {t("work.viewDetails")}
                   </button>
                 </div>
               </motion.div>
