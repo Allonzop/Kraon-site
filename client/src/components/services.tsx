@@ -1,46 +1,51 @@
 import { motion } from "framer-motion";
 import { Target, Zap, Search, Users, Palette, BarChart3 } from "lucide-react";
+import { useLanguage } from "@/lib/i18n";
 
-const services = [
-  {
-    icon: Target,
-    title: "Strategy",
-    description: "Data-driven growth strategies that align with your business objectives",
-    color: "primary"
-  },
-  {
-    icon: Zap,
-    title: "Paid Ads",
-    description: "High-performance campaigns across Google, Meta, and LinkedIn",
-    color: "accent"
-  },
-  {
-    icon: Search,
-    title: "SEO",
-    description: "Organic visibility optimization for sustainable long-term growth",
-    color: "primary"
-  },
-  {
-    icon: Users,
-    title: "Content & Social",
-    description: "Engaging content strategies that build communities and drive conversions",
-    color: "accent"
-  },
-  {
-    icon: Palette,
-    title: "Web Design",
-    description: "Premium websites that convert visitors into customers",
-    color: "primary"
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics",
-    description: "Advanced tracking and insights to optimize every touchpoint",
-    color: "accent"
-  }
-];
+// Services data will be generated using translations
 
 export default function Services() {
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      icon: Target,
+      title: t("services.strategy.title"),
+      description: t("services.strategy.desc"),
+      color: "primary"
+    },
+    {
+      icon: Zap,
+      title: t("services.ads.title"),
+      description: t("services.ads.desc"),
+      color: "accent"
+    },
+    {
+      icon: Search,
+      title: t("services.seo.title"),
+      description: t("services.seo.desc"),
+      color: "primary"
+    },
+    {
+      icon: Users,
+      title: t("services.content.title"),
+      description: t("services.content.desc"),
+      color: "accent"
+    },
+    {
+      icon: Palette,
+      title: t("services.design.title"),
+      description: t("services.design.desc"),
+      color: "primary"
+    },
+    {
+      icon: BarChart3,
+      title: t("services.analytics.title"),
+      description: t("services.analytics.desc"),
+      color: "accent"
+    }
+  ];
+
   return (
     <section id="services" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,10 +57,14 @@ export default function Services() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Strategic <span className="gradient-text">Services</span>
+            {t("services.title").includes("Strategic") ? (
+              <>Strategic <span className="gradient-text">Services</span></>
+            ) : (
+              <>{t("services.title").split(" ").slice(0, -2).join(" ")} <span className="gradient-text">{t("services.title").split(" ").slice(-2).join(" ")}</span></>
+            )}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive digital solutions designed to accelerate your business growth
+            {t("services.subtitle")}
           </p>
         </motion.div>
 
