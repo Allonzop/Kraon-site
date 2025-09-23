@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/i18n";
 
 export default function Hero() {
+  const { t } = useLanguage();
+  
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -60,8 +63,14 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Premium Digital Marketing for{" "}
-          <span className="gradient-text">Ambitious SMEs</span>
+          {t("hero.headline").split(" ").map((word, index, array) => {
+            const isLastPart = index >= array.length - 2;
+            return isLastPart ? (
+              <span key={index} className="gradient-text">{word} </span>
+            ) : (
+              <span key={index}>{word} </span>
+            );
+          })}
         </motion.h1>
         
         <motion.p 
@@ -70,7 +79,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Strategy, performance, and design — tailored to your growth.
+          {t("hero.subtext")}
         </motion.p>
         
         <motion.div 
@@ -84,7 +93,7 @@ export default function Hero() {
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg transition-all hover:scale-105 glow-blue"
             data-testid="button-get-proposal"
           >
-            Get a Proposal
+            {t("hero.cta.proposal")}
           </Button>
           <Button
             onClick={() => scrollToSection("work")}
@@ -92,7 +101,7 @@ export default function Hero() {
             className="glass border border-border hover:border-primary text-foreground px-8 py-3 rounded-lg font-semibold text-lg transition-all hover:scale-105"
             data-testid="button-see-work"
           >
-            See Work
+            {t("hero.cta.work")}
           </Button>
         </motion.div>
       </div>
