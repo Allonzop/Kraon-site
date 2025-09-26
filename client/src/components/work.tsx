@@ -113,20 +113,20 @@ export default function Work() {
                 
                 <div className="absolute inset-0 bg-secondary/40" />
                 
-                {/* Vision logo for first project */}
+                {/* Vision logo for first project - fixed hover issue */}
                 {project.id === 1 && (
                   <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
+                    className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none group-hover:opacity-20 transition-opacity duration-300"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.2 + 0.5, duration: 0.6 }}
                   >
-                    <div className="bg-black/80 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+                    <div className="bg-black/90 backdrop-blur-sm p-6 rounded-2xl border border-white/20 shadow-2xl">
                       <img 
                         src={visionLogo} 
                         alt="Vision Logo" 
-                        className="h-16 w-auto object-contain filter brightness-0 invert"
-                        style={{ maxWidth: '200px' }}
+                        className="h-12 w-auto object-contain"
+                        style={{ maxWidth: '160px' }}
                       />
                     </div>
                   </motion.div>

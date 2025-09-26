@@ -181,6 +181,78 @@ export default function ProjectDetail() {
         </div>
       </section>
 
+      {/* Product Gallery */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+              {language === "fr" ? "Galerie du Projet" : "Project Gallery"}
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              {language === "fr" 
+                ? "Découvrez le produit et l'aperçu du site réalisé" 
+                : "Discover the product and preview of the website created"
+              }
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            {/* Video Section */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 border border-white/10">
+                <video 
+                  src={previewVideo}
+                  controls
+                  poster={capImage}
+                  className="w-full h-full object-cover"
+                  preload="metadata"
+                >
+                  {language === "fr" 
+                    ? "Votre navigateur ne supporte pas les vidéos HTML5." 
+                    : "Your browser does not support HTML5 video."
+                  }
+                </video>
+              </div>
+              <p className="text-sm text-muted-foreground mt-4 text-center">
+                {language === "fr" ? "Aperçu du site Wear the Vision" : "Wear the Vision website preview"}
+              </p>
+            </motion.div>
+
+            {/* Cap Image Section */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 border border-white/10">
+                <img 
+                  src={capImage}
+                  alt={language === "fr" ? "Casquette Wear the Vision" : "Wear the Vision Cap"}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-sm text-muted-foreground mt-4 text-center">
+                {language === "fr" ? "Casquette premium durable" : "Premium sustainable cap"}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Challenges & Solutions */}
       <section className="py-16 bg-muted/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
