@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import { Link } from "wouter";
+import visionLogo from "@assets/Logo Tech Blanc_1758895568511.png";
 
 // Projects data will be generated using translations
 
@@ -111,6 +112,25 @@ export default function Work() {
                 />
                 
                 <div className="absolute inset-0 bg-secondary/40" />
+                
+                {/* Vision logo for first project */}
+                {project.id === 1 && (
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.2 + 0.5, duration: 0.6 }}
+                  >
+                    <div className="bg-black/80 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+                      <img 
+                        src={visionLogo} 
+                        alt="Vision Logo" 
+                        className="h-16 w-auto object-contain filter brightness-0 invert"
+                        style={{ maxWidth: '200px' }}
+                      />
+                    </div>
+                  </motion.div>
+                )}
                 
                 {/* Floating elements inside project card */}
                 <motion.div

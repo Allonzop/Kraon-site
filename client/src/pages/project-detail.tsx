@@ -3,6 +3,7 @@ import { useParams, Link } from "wouter";
 import { ArrowLeft, Globe, TrendingUp, Users, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n";
+import visionLogo from "@assets/Logo Tech Blanc_1758895568511.png";
 
 export default function ProjectDetail() {
   const { t, language } = useLanguage();
@@ -71,8 +72,12 @@ export default function ProjectDetail() {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">WTV</span>
+              <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center border border-white/20">
+                <img 
+                  src={visionLogo} 
+                  alt="Vision Logo" 
+                  className="h-8 w-auto object-contain"
+                />
               </div>
               <div>
                 <h1 className="text-3xl sm:text-4xl font-bold">{projectData.title}</h1>
@@ -106,8 +111,12 @@ export default function ProjectDetail() {
             <div className="absolute inset-0 bg-black/10" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center text-white">
-                <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-2xl font-bold">WTV</span>
+                <div className="w-24 h-24 bg-black/80 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 mx-auto border border-white/20">
+                  <img 
+                    src={visionLogo} 
+                    alt="Vision Logo" 
+                    className="h-12 w-auto object-contain"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{projectData.title}</h3>
                 <p className="text-white/80">{language === "fr" ? "Futur | Durable | Libre" : "Future | Sustainable | Free"}</p>
