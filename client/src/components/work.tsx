@@ -116,7 +116,7 @@ export default function Work() {
                 {/* Vision logo for first project - fixed hover issue */}
                 {project.id === 1 && (
                   <motion.div
-                    className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none group-hover:opacity-20 transition-opacity duration-300"
+                    className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none group-hover:opacity-0 transition-opacity duration-300"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.2 + 0.5, duration: 0.6 }}
