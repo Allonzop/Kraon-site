@@ -217,7 +217,7 @@ export default function Contact() {
                       type="email"
                       {...register("email")}
                       className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
-                      placeholder="your@email.com"
+                      placeholder={t("contact.placeholder.email")}
                       data-testid="input-email"
                     />
                   </motion.div>
@@ -249,7 +249,7 @@ export default function Contact() {
                       type="tel"
                       {...register("phone")}
                       className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
-                      placeholder="+1 (555) 123-4567"
+                      placeholder={t("contact.placeholder.phone")}
                       data-testid="input-phone"
                     />
                   </motion.div>
@@ -275,7 +275,7 @@ export default function Contact() {
                     rows={6}
                     {...register("message")}
                     className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 resize-none hover:border-primary/50"
-                    placeholder={t("contact.form.messagePlaceholder")}
+                    placeholder={t("contact.placeholder.message")}
                     data-testid="textarea-message"
                   />
                 </motion.div>
