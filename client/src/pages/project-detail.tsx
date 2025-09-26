@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n";
 
 export default function ProjectDetail() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const params = useParams();
   
   // For now, we'll show Wear the Vision details regardless of ID
@@ -13,15 +13,15 @@ export default function ProjectDetail() {
   
   const projectData = {
     title: "Wear the Vision",
-    subtitle: t("language") === "fr" ? "Casquettes Premium Durables" : "Premium Sustainable Caps",
+    subtitle: language === "fr" ? "Casquettes Premium Durables" : "Premium Sustainable Caps",
     url: "wear-the-vision.fr",
     category: "E-commerce",
     year: "2024",
-    description: t("language") === "fr" 
+    description: language === "fr" 
       ? "Création d'une boutique e-commerce premium spécialisée dans les casquettes durables. Design moderne, UX optimisée et stratégie marketing complète."
       : "Creation of a premium e-commerce store specializing in sustainable caps. Modern design, optimized UX and complete marketing strategy.",
     
-    challenges: t("language") === "fr" ? [
+    challenges: language === "fr" ? [
       "Positionnement premium sur un marché concurrentiel",
       "Communication de la valeur durable",
       "Optimisation des conversions e-commerce",
@@ -33,7 +33,7 @@ export default function ProjectDetail() {
       "Creating strong brand identity"
     ],
     
-    solutions: t("language") === "fr" ? [
+    solutions: language === "fr" ? [
       "Design épuré et moderne avec focus sur la durabilité",
       "Storytelling autour des valeurs écologiques",
       "Parcours d'achat optimisé et intuitif",
@@ -61,7 +61,7 @@ export default function ProjectDetail() {
           <Link href="/#work">
             <Button variant="ghost" className="mb-6 group">
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-              {t("language") === "fr" ? "Retour aux projets" : "Back to projects"}
+              {language === "fr" ? "Retour aux projets" : "Back to projects"}
             </Button>
           </Link>
           
@@ -110,7 +110,7 @@ export default function ProjectDetail() {
                   <span className="text-2xl font-bold">WTV</span>
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{projectData.title}</h3>
-                <p className="text-white/80">{t("language") === "fr" ? "Futur | Durable | Libre" : "Future | Sustainable | Free"}</p>
+                <p className="text-white/80">{language === "fr" ? "Futur | Durable | Libre" : "Future | Sustainable | Free"}</p>
               </div>
             </div>
           </motion.div>
@@ -128,7 +128,7 @@ export default function ProjectDetail() {
               viewport={{ once: true }}
             >
               <h2 className="text-2xl sm:text-3xl font-bold mb-6">
-                {t("language") === "fr" ? "Vue d'ensemble" : "Project Overview"}
+                {language === "fr" ? "Vue d'ensemble" : "Project Overview"}
               </h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 {projectData.description}
@@ -137,15 +137,15 @@ export default function ProjectDetail() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span>{t("language") === "fr" ? "100% matières recyclées" : "100% recycled materials"}</span>
+                  <span>{language === "fr" ? "100% matières recyclées" : "100% recycled materials"}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-accent rounded-full" />
-                  <span>{t("language") === "fr" ? "387L d'eau économisés par casquette" : "387L water saved per cap"}</span>
+                  <span>{language === "fr" ? "387L d'eau économisés par casquette" : "387L water saved per cap"}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span>{t("language") === "fr" ? "Expédition sans plastique" : "Plastic-free shipping"}</span>
+                  <span>{language === "fr" ? "Expédition sans plastique" : "Plastic-free shipping"}</span>
                 </div>
               </div>
             </motion.div>
@@ -183,7 +183,7 @@ export default function ProjectDetail() {
             >
               <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
                 <TrendingUp className="w-6 h-6 text-accent" />
-                {t("language") === "fr" ? "Défis" : "Challenges"}
+                {language === "fr" ? "Défis" : "Challenges"}
               </h3>
               <div className="space-y-4">
                 {projectData.challenges.map((challenge, index) => (
@@ -204,7 +204,7 @@ export default function ProjectDetail() {
             >
               <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
                 <Award className="w-6 h-6 text-primary" />
-                {t("language") === "fr" ? "Solutions" : "Solutions"}
+                {language === "fr" ? "Solutions" : "Solutions"}
               </h3>
               <div className="space-y-4">
                 {projectData.solutions.map((solution, index) => (
@@ -229,16 +229,16 @@ export default function ProjectDetail() {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              {t("language") === "fr" ? "Prêt à booster votre e-commerce ?" : "Ready to boost your e-commerce?"}
+              {language === "fr" ? "Prêt à booster votre e-commerce ?" : "Ready to boost your e-commerce?"}
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              {t("language") === "fr" 
+              {language === "fr" 
                 ? "Discutons de votre projet et créons ensemble une expérience client exceptionnelle." 
                 : "Let's discuss your project and create an exceptional customer experience together."}
             </p>
             <Link href="/#contact">
               <Button size="lg" className="text-lg px-8">
-                {t("language") === "fr" ? "Démarrer un projet" : "Start a project"}
+                {language === "fr" ? "Démarrer un projet" : "Start a project"}
               </Button>
             </Link>
           </motion.div>
