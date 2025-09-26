@@ -64,39 +64,124 @@ export default function Work() {
             <motion.div
               key={project.id}
               className="project-card relative glass rounded-xl overflow-hidden group cursor-pointer"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, scale: 0.8, rotateY: 10 }}
+              whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ 
+                duration: 0.7, 
+                delay: index * 0.15,
+                ease: "easeOut",
+                type: "spring",
+                stiffness: 100
+              }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ 
+                scale: 1.03, 
+                y: -8,
+                rotateY: -2,
+                transition: { type: "spring", stiffness: 300, damping: 20 }
+              }}
               data-testid={`project-${project.id}`}
             >
-              <div className={`aspect-video bg-gradient-to-br ${project.gradient} relative`}>
-                <div className="absolute inset-0 bg-secondary/50" />
-                <div className="absolute bottom-4 left-4 z-10">
-                  <span className="text-sm text-muted-foreground bg-background/80 px-2 py-1 rounded">
+              <motion.div 
+                className={`aspect-video bg-gradient-to-br ${project.gradient} relative overflow-hidden`}
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                {/* Animated background pattern */}
+                <motion.div 
+                  className="absolute inset-0 opacity-30"
+                  style={{
+                    backgroundImage: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+                    backgroundSize: '20px 20px'
+                  }}
+                  animate={{
+                    backgroundPosition: ['0px 0px', '20px 20px'],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+                
+                <div className="absolute inset-0 bg-secondary/40" />
+                
+                {/* Floating elements inside project card */}
+                <motion.div
+                  className="absolute top-4 right-4 w-4 h-4 bg-white/30 rounded-full"
+                  animate={{
+                    y: [0, -10, 0],
+                    opacity: [0.3, 0.8, 0.3]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.5
+                  }}
+                />
+                
+                <motion.div 
+                  className="absolute bottom-4 left-4 z-10"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3 }}
+                >
+                  <motion.span 
+                    className="text-sm text-muted-foreground bg-background/90 backdrop-blur-sm px-3 py-1 rounded-full border border-white/20"
+                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.95)" }}
+                  >
                     {project.category}
-                  </span>
-                </div>
-              </div>
+                  </motion.span>
+                </motion.div>
+              </motion.div>
               
               <motion.div 
-                className="project-overlay absolute inset-0 flex items-center justify-center"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.4 }}
+                className="project-overlay absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileHover={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-lg mb-4">{project.result}</p>
-                  <button 
-                    className="bg-white/20 backdrop-blur-sm border border-white/20 text-white px-6 py-2 rounded-lg font-medium hover:bg-white/30 transition-colors"
-                    data-testid={`button-view-details-${project.id}`}
+                <motion.div 
+                  className="text-center px-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                >
+                  <motion.h3 
+                    className="text-2xl font-bold mb-3 text-white"
+                    whileHover={{ scale: 1.05 }}
                   >
-                    {t("work.viewDetails")}
-                  </button>
-                </div>
+                    {project.title}
+                  </motion.h3>
+                  <motion.p 
+                    className="text-lg mb-6 text-white/90"
+                    whileHover={{ x: 2 }}
+                  >
+                    {project.result}
+                  </motion.p>
+                  <motion.button 
+                    className="bg-primary/90 backdrop-blur-sm border border-primary text-white px-6 py-3 rounded-lg font-medium transition-all relative overflow-hidden group"
+                    data-testid={`button-view-details-${project.id}`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.6 }}
+                    />
+                    <span className="relative z-10">{t("work.viewDetails")}</span>
+                  </motion.button>
+                </motion.div>
               </motion.div>
+              
+              {/* Glow effect */}
+              <motion.div
+                className="absolute -inset-1 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ zIndex: -1 }}
+              />
             </motion.div>
           ))}
         </div>

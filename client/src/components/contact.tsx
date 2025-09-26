@@ -116,116 +116,236 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
+              <motion.div 
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
                   <Label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                     Name *
                   </Label>
-                  <Input
-                    id="name"
-                    {...register("name")}
-                    className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
-                    placeholder="Your full name"
-                    data-testid="input-name"
-                  />
+                  <motion.div
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  >
+                    <Input
+                      id="name"
+                      {...register("name")}
+                      className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
+                      placeholder="Your full name"
+                      data-testid="input-name"
+                    />
+                  </motion.div>
                   {errors.name && (
-                    <p className="mt-1 text-sm text-destructive">{errors.name.message}</p>
+                    <motion.p 
+                      className="mt-1 text-sm text-destructive"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {errors.name.message}
+                    </motion.p>
                   )}
-                </div>
+                </motion.div>
                 
-                <div>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
                   <Label htmlFor="company" className="block text-sm font-medium text-foreground mb-2">
                     Company *
                   </Label>
-                  <Input
-                    id="company"
-                    {...register("company")}
-                    className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
-                    placeholder="Your company name"
-                    data-testid="input-company"
-                  />
+                  <motion.div
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  >
+                    <Input
+                      id="company"
+                      {...register("company")}
+                      className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
+                      placeholder="Your company name"
+                      data-testid="input-company"
+                    />
+                  </motion.div>
                   {errors.company && (
-                    <p className="mt-1 text-sm text-destructive">{errors.company.message}</p>
+                    <motion.p 
+                      className="mt-1 text-sm text-destructive"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {errors.company.message}
+                    </motion.p>
                   )}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
+              <motion.div 
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
                   <Label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                     Email *
                   </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    {...register("email")}
-                    className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
-                    placeholder="your@email.com"
-                    data-testid="input-email"
-                  />
+                  <motion.div
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  >
+                    <Input
+                      id="email"
+                      type="email"
+                      {...register("email")}
+                      className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
+                      placeholder="your@email.com"
+                      data-testid="input-email"
+                    />
+                  </motion.div>
                   {errors.email && (
-                    <p className="mt-1 text-sm text-destructive">{errors.email.message}</p>
+                    <motion.p 
+                      className="mt-1 text-sm text-destructive"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {errors.email.message}
+                    </motion.p>
                   )}
-                </div>
+                </motion.div>
                 
-                <div>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
                   <Label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
                     Phone
                   </Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    {...register("phone")}
-                    className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
-                    placeholder="+1 (555) 123-4567"
-                    data-testid="input-phone"
-                  />
-                </div>
-              </div>
+                  <motion.div
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  >
+                    <Input
+                      id="phone"
+                      type="tel"
+                      {...register("phone")}
+                      className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
+                      placeholder="+1 (555) 123-4567"
+                      data-testid="input-phone"
+                    />
+                  </motion.div>
+                </motion.div>
+              </motion.div>
 
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                viewport={{ once: true }}
+              >
                 <Label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                   Message *
                 </Label>
-                <Textarea
-                  id="message"
-                  rows={6}
-                  {...register("message")}
-                  className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors resize-none"
-                  placeholder="Tell us about your business goals and how we can help..."
-                  data-testid="textarea-message"
-                />
+                <motion.div
+                  whileHover={{ scale: 1.01 }}
+                  whileFocus={{ scale: 1.01 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <Textarea
+                    id="message"
+                    rows={6}
+                    {...register("message")}
+                    className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 resize-none hover:border-primary/50"
+                    placeholder="Tell us about your business goals and how we can help..."
+                    data-testid="textarea-message"
+                  />
+                </motion.div>
                 {errors.message && (
-                  <p className="mt-1 text-sm text-destructive">{errors.message.message}</p>
+                  <motion.p 
+                    className="mt-1 text-sm text-destructive"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {errors.message.message}
+                  </motion.p>
                 )}
-              </div>
+              </motion.div>
 
-              <div className="flex items-start">
-                <Checkbox
-                  id="consent"
-                  checked={consentValue}
-                  onCheckedChange={(checked) => setValue("consent", !!checked)}
-                  className="mt-1"
-                  data-testid="checkbox-consent"
-                />
+              <motion.div 
+                className="flex items-start"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Checkbox
+                    id="consent"
+                    checked={consentValue}
+                    onCheckedChange={(checked) => setValue("consent", !!checked)}
+                    className="mt-1"
+                    data-testid="checkbox-consent"
+                  />
+                </motion.div>
                 <Label htmlFor="consent" className="ml-3 text-sm text-muted-foreground leading-relaxed">
                   I agree to receive communications from KRAON and understand that I can unsubscribe at any time. *
                 </Label>
-              </div>
+              </motion.div>
               {errors.consent && (
-                <p className="text-sm text-destructive">{errors.consent.message}</p>
+                <motion.p 
+                  className="text-sm text-destructive"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {errors.consent.message}
+                </motion.p>
               )}
 
-              <div>
-                <Button
-                  type="submit"
-                  disabled={contactMutation.isPending}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 glow-blue disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  data-testid="button-submit"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                viewport={{ once: true }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 >
-                  {contactMutation.isPending ? "Sending..." : "Send Message"}
-                </Button>
-              </div>
+                  <Button
+                    type="submit"
+                    disabled={contactMutation.isPending}
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all glow-blue disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
+                    data-testid="button-submit"
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.6, repeat: contactMutation.isPending ? Infinity : 0 }}
+                    />
+                    <span className="relative z-10">
+                      {contactMutation.isPending ? "Sending..." : "Send Message"}
+                    </span>
+                  </Button>
+                </motion.div>
+              </motion.div>
             </form>
           )}
         </motion.div>

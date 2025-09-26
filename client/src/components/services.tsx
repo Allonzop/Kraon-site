@@ -74,23 +74,71 @@ export default function Services() {
             return (
               <motion.div
                 key={service.title}
-                className="glass rounded-xl p-6 card-hover group cursor-pointer"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="glass rounded-xl p-6 card-hover group cursor-pointer relative overflow-hidden"
+                initial={{ opacity: 0, y: 50, rotateX: 15 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.1,
+                  ease: "easeOut",
+                  type: "spring",
+                  stiffness: 100
+                }}
                 viewport={{ once: true }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.03,
+                  rotateY: 2,
+                  transition: { type: "spring", stiffness: 300, damping: 20 }
+                }}
                 data-testid={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                <div className={`w-12 h-12 ${service.color === 'primary' ? 'bg-primary/20' : 'bg-accent/20'} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <Icon className={`w-6 h-6 ${service.color === 'primary' ? 'text-primary' : 'text-accent'}`} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                {/* Animated background effect */}
+                <motion.div
+                  className={`absolute inset-0 bg-gradient-to-br ${service.color === 'primary' ? 'from-primary/5 to-primary/20' : 'from-accent/5 to-accent/20'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  initial={{ scale: 0, rotate: 45 }}
+                  whileHover={{ scale: 1.5, rotate: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+                
+                <motion.div 
+                  className={`w-12 h-12 ${service.color === 'primary' ? 'bg-primary/20' : 'bg-accent/20'} rounded-lg flex items-center justify-center mb-4 relative z-10`}
+                  whileHover={{ 
+                    scale: 1.2, 
+                    rotate: 360,
+                    transition: { duration: 0.5, ease: "easeInOut" }
+                  }}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Icon className={`w-6 h-6 ${service.color === 'primary' ? 'text-primary' : 'text-accent'}`} />
+                  </motion.div>
+                </motion.div>
+                
+                <motion.h3 
+                  className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors relative z-10"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
                   {service.title}
-                </h3>
-                <p className="text-muted-foreground">
+                </motion.h3>
+                
+                <motion.p 
+                  className="text-muted-foreground relative z-10"
+                  initial={{ opacity: 0.8 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
                   {service.description}
-                </p>
+                </motion.p>
+                
+                {/* Hover glow effect */}
+                <motion.div
+                  className={`absolute -inset-1 bg-gradient-to-r ${service.color === 'primary' ? 'from-primary/0 via-primary/20 to-primary/0' : 'from-accent/0 via-accent/20 to-accent/0'} rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  style={{ zIndex: -1 }}
+                />
               </motion.div>
             );
           })}
