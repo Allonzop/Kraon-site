@@ -59,7 +59,7 @@ export default function ProjectDetail() {
       <section className="relative py-8 border-b border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link href="/#work">
-            <Button variant="ghost" className="mb-6 group">
+            <Button variant="ghost" className="mb-6 group" data-testid="button-back-to-projects">
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
               {language === "fr" ? "Retour aux projets" : "Back to projects"}
             </Button>
@@ -237,7 +237,7 @@ export default function ProjectDetail() {
                 : "Let's discuss your project and create an exceptional customer experience together."}
             </p>
             <Link href="/#contact">
-              <Button size="lg" className="text-lg px-8">
+              <Button size="lg" className="text-lg px-8" data-testid="button-start-project">
                 {language === "fr" ? "Démarrer un projet" : "Start a project"}
               </Button>
             </Link>
