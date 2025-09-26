@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Target, Zap, Search, Users, Palette, BarChart3 } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 
@@ -6,6 +6,7 @@ import { useLanguage } from "@/lib/i18n";
 
 export default function Services() {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   const services = [
     {
@@ -103,7 +104,7 @@ export default function Services() {
                 
                 <motion.div 
                   className={`w-12 h-12 ${service.color === 'primary' ? 'bg-primary/20' : 'bg-accent/20'} rounded-lg flex items-center justify-center mb-4 relative z-10`}
-                  whileHover={{ 
+                  whileHover={shouldReduceMotion ? { scale: 1.05 } : { 
                     scale: 1.2, 
                     rotate: 360,
                     transition: { duration: 0.5, ease: "easeInOut" }

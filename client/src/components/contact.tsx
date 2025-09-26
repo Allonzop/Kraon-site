@@ -11,21 +11,25 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { useLanguage } from "@/lib/i18n";
 
-const contactSchema = z.object({
-  name: z.string().min(1, "Name is required").min(2, "Name must be at least 2 characters"),
-  company: z.string().min(1, "Company is required").min(2, "Company must be at least 2 characters"),
-  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+const createContactSchema = (t: any) => z.object({
+  name: z.string().min(1, t("contact.validation.nameRequired")).min(2, t("contact.validation.nameMin")),
+  company: z.string().min(1, t("contact.validation.companyRequired")).min(2, t("contact.validation.companyMin")),
+  email: z.string().min(1, t("contact.validation.emailRequired")).email(t("contact.validation.emailInvalid")),
   phone: z.string().optional(),
-  message: z.string().min(1, "Message is required").min(10, "Message must be at least 10 characters"),
-  consent: z.boolean().refine((val) => val === true, "You must agree to receive communications")
+  message: z.string().min(1, t("contact.validation.messageRequired")).min(10, t("contact.validation.messageMin")),
+  consent: z.boolean().refine((val) => val === true, t("contact.validation.consentRequired"))
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+type ContactFormData = z.infer<ReturnType<typeof createContactSchema>>;
 
 export default function Contact() {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const contactSchema = createContactSchema(t);
 
   const {
     register,
@@ -57,14 +61,14 @@ export default function Contact() {
       setIsSubmitted(true);
       reset();
       toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you within 24 hours.",
+        title: t("contact.success.toast.title"),
+        description: t("contact.success.toast.description"),
       });
     },
     onError: (error: any) => {
       toast({
-        title: "Failed to send message",
-        description: error.message || "Please try again later.",
+        title: t("contact.error.toast.title"),
+        description: error.message || t("contact.error.toast.description"),
         variant: "destructive",
       });
     },
@@ -85,10 +89,14 @@ export default function Contact() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Start Your <span className="gradient-text">Growth Journey</span>
+            {t("contact.title").includes("Start") ? (
+              <>Start Your <span className="gradient-text">Growth Journey</span></>
+            ) : (
+              <><span className="gradient-text">{t("contact.title")}</span></>
+            )}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to scale your business? Let's discuss how we can accelerate your growth.
+            {t("contact.subtitle")}
           </p>
         </motion.div>
 
@@ -111,8 +119,8 @@ export default function Contact() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </motion.div>
-              <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-              <p className="text-muted-foreground">We'll get back to you within 24 hours.</p>
+              <h3 className="text-2xl font-bold mb-2">{t("contact.success.title")}</h3>
+              <p className="text-muted-foreground">{t("contact.success.subtitle")}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -128,7 +136,7 @@ export default function Contact() {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <Label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                    Name *
+                    {t("contact.form.name")} *
                   </Label>
                   <motion.div
                     whileFocus={{ scale: 1.02 }}
@@ -138,7 +146,7 @@ export default function Contact() {
                       id="name"
                       {...register("name")}
                       className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
-                      placeholder="Your full name"
+                      placeholder={t("contact.form.namePlaceholder")}
                       data-testid="input-name"
                     />
                   </motion.div>
@@ -159,7 +167,7 @@ export default function Contact() {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <Label htmlFor="company" className="block text-sm font-medium text-foreground mb-2">
-                    Company *
+                    {t("contact.form.company")} *
                   </Label>
                   <motion.div
                     whileFocus={{ scale: 1.02 }}
@@ -169,7 +177,7 @@ export default function Contact() {
                       id="company"
                       {...register("company")}
                       className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
-                      placeholder="Your company name"
+                      placeholder={t("contact.form.companyPlaceholder")}
                       data-testid="input-company"
                     />
                   </motion.div>
@@ -198,7 +206,7 @@ export default function Contact() {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <Label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Email *
+                    {t("contact.form.email")} *
                   </Label>
                   <motion.div
                     whileFocus={{ scale: 1.02 }}
@@ -230,7 +238,7 @@ export default function Contact() {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <Label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                    Phone
+                    {t("contact.form.phone")}
                   </Label>
                   <motion.div
                     whileFocus={{ scale: 1.02 }}
@@ -255,7 +263,7 @@ export default function Contact() {
                 viewport={{ once: true }}
               >
                 <Label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                  Message *
+                  {t("contact.form.message")} *
                 </Label>
                 <motion.div
                   whileHover={{ scale: 1.01 }}
@@ -267,7 +275,7 @@ export default function Contact() {
                     rows={6}
                     {...register("message")}
                     className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 resize-none hover:border-primary/50"
-                    placeholder="Tell us about your business goals and how we can help..."
+                    placeholder={t("contact.form.messagePlaceholder")}
                     data-testid="textarea-message"
                   />
                 </motion.div>
@@ -303,7 +311,7 @@ export default function Contact() {
                   />
                 </motion.div>
                 <Label htmlFor="consent" className="ml-3 text-sm text-muted-foreground leading-relaxed">
-                  I agree to receive communications from KRAON and understand that I can unsubscribe at any time. *
+                  {t("contact.form.consent")} *
                 </Label>
               </motion.div>
               {errors.consent && (
@@ -341,7 +349,7 @@ export default function Contact() {
                       transition={{ duration: 0.6, repeat: contactMutation.isPending ? Infinity : 0 }}
                     />
                     <span className="relative z-10">
-                      {contactMutation.isPending ? "Sending..." : "Send Message"}
+                      {contactMutation.isPending ? t("contact.form.sending") : t("contact.form.submit")}
                     </span>
                   </Button>
                 </motion.div>

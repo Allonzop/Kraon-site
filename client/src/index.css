@@ -127,4 +127,77 @@ body {
   .project-card:hover .project-overlay {
     opacity: 1;
   }
+
+  /* Mobile optimizations */
+
+  @media (max-width: 640px) {
+    .hero-bg {
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(61, 155, 233, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(122, 61, 233, 0.12) 0%, transparent 40%),
+        linear-gradient(135deg, hsl(0, 0%, 8%) 0%, hsl(0, 0%, 12%) 100%);
+    }
+    
+    .grid-pattern {
+      background-size: 30px 30px;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(61, 155, 233, 0.15);
+    }
+    
+    .glow-blue {
+      box-shadow: 0 0 20px rgba(61, 155, 233, 0.25);
+    }
+    
+    .glow-violet {
+      box-shadow: 0 0 20px rgba(122, 61, 233, 0.25);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+    }
+    
+    .gradient-text {
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+    }
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .grid-pattern {
+      animation: none;
+    }
+    
+    .gradient-text {
+      animation: none;
+    }
+    
+    .card-hover {
+      transition: none;
+    }
+    
+    .card-hover:hover {
+      transform: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

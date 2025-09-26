@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 
 // Projects data will be generated using translations
 
 export default function Work() {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   const projects = [
     {
@@ -63,7 +64,10 @@ export default function Work() {
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              className="project-card relative glass rounded-xl overflow-hidden group cursor-pointer"
+              className="project-card relative glass rounded-xl overflow-hidden group cursor-pointer focus-within:ring-2 focus-within:ring-primary/50"
+              tabIndex={0}
+              role="button"
+              aria-label={`View details for ${project.title}`}
               initial={{ opacity: 0, scale: 0.8, rotateY: 10 }}
               whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
               transition={{ 
@@ -94,14 +98,15 @@ export default function Work() {
                     backgroundImage: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 1px, transparent 1px)`,
                     backgroundSize: '20px 20px'
                   }}
-                  animate={{
+                  animate={shouldReduceMotion ? {} : {
                     backgroundPosition: ['0px 0px', '20px 20px'],
                   }}
-                  transition={{
+                  transition={shouldReduceMotion ? {} : {
                     duration: 10,
                     repeat: Infinity,
                     ease: "linear"
                   }}
+                  aria-hidden="true"
                 />
                 
                 <div className="absolute inset-0 bg-secondary/40" />
@@ -109,16 +114,17 @@ export default function Work() {
                 {/* Floating elements inside project card */}
                 <motion.div
                   className="absolute top-4 right-4 w-4 h-4 bg-white/30 rounded-full"
-                  animate={{
+                  animate={shouldReduceMotion ? {} : {
                     y: [0, -10, 0],
                     opacity: [0.3, 0.8, 0.3]
                   }}
-                  transition={{
+                  transition={shouldReduceMotion ? {} : {
                     duration: 3,
                     repeat: Infinity,
                     ease: "easeInOut",
                     delay: index * 0.5
                   }}
+                  aria-hidden="true"
                 />
                 
                 <motion.div 
@@ -136,46 +142,37 @@ export default function Work() {
                 </motion.div>
               </motion.div>
               
-              <motion.div 
-                className="project-overlay absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileHover={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              >
-                <motion.div 
-                  className="text-center px-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileHover={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
+              {/* Mobile content - always visible on small screens */}
+              <div className="sm:hidden absolute bottom-0 left-0 right-0 bg-black/90 backdrop-blur-sm p-4 z-10">
+                <h3 className="text-lg font-bold mb-2 text-white">{project.title}</h3>
+                <p className="text-sm text-white/90 mb-3">{project.result}</p>
+                <button 
+                  className="bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm w-full"
+                  data-testid={`button-view-details-mobile-${project.id}`}
                 >
-                  <motion.h3 
-                    className="text-2xl font-bold mb-3 text-white"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  {t("work.viewDetails")}
+                </button>
+              </div>
+
+              {/* Desktop hover overlay */}
+              <div 
+                className="project-overlay hidden sm:flex absolute inset-0 bg-black/80 backdrop-blur-sm items-center justify-center opacity-0 translate-y-5 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto"
+              >
+                <div className="text-center px-6">
+                  <h3 className="text-2xl font-bold mb-3 text-white">
                     {project.title}
-                  </motion.h3>
-                  <motion.p 
-                    className="text-lg mb-6 text-white/90"
-                    whileHover={{ x: 2 }}
-                  >
+                  </h3>
+                  <p className="text-lg mb-6 text-white/90">
                     {project.result}
-                  </motion.p>
-                  <motion.button 
-                    className="bg-primary/90 backdrop-blur-sm border border-primary text-white px-6 py-3 rounded-lg font-medium transition-all relative overflow-hidden group"
+                  </p>
+                  <button 
+                    className="bg-primary/90 backdrop-blur-sm border border-primary text-white px-6 py-3 rounded-lg font-medium transition-all hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50"
                     data-testid={`button-view-details-${project.id}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                   >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: "100%" }}
-                      transition={{ duration: 0.6 }}
-                    />
-                    <span className="relative z-10">{t("work.viewDetails")}</span>
-                  </motion.button>
-                </motion.div>
-              </motion.div>
+                    {t("work.viewDetails")}
+                  </button>
+                </div>
+              </div>
               
               {/* Glow effect */}
               <motion.div

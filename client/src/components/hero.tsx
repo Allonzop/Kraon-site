@@ -1,9 +1,10 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Hero() {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
   
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -19,12 +20,12 @@ export default function Hero() {
       {/* Enhanced floating geometric elements */}
       <motion.div 
         className="absolute top-1/4 left-1/4 w-16 h-16 border border-primary/30 rotate-45"
-        animate={{ 
+        animate={shouldReduceMotion ? {} : { 
           y: [0, -20, 0],
           rotate: [45, 90, 45],
           x: [0, 10, 0]
         }}
-        transition={{ 
+        transition={shouldReduceMotion ? {} : { 
           duration: 6, 
           repeat: Infinity, 
           ease: "easeInOut" 
@@ -32,12 +33,12 @@ export default function Hero() {
       />
       <motion.div 
         className="absolute bottom-1/3 right-1/4 w-12 h-12 border border-accent/30"
-        animate={{ 
+        animate={shouldReduceMotion ? {} : { 
           y: [0, -15, 0],
           scale: [1, 1.2, 1],
           rotate: [0, 360, 0]
         }}
-        transition={{ 
+        transition={shouldReduceMotion ? {} : { 
           duration: 8, 
           repeat: Infinity, 
           ease: "easeInOut",
@@ -46,12 +47,12 @@ export default function Hero() {
       />
       <motion.div 
         className="absolute top-1/2 right-1/3 w-8 h-8 bg-primary/20 rounded-full"
-        animate={{ 
+        animate={shouldReduceMotion ? {} : { 
           y: [0, -25, 0],
           opacity: [0.2, 0.8, 0.2],
           scale: [1, 1.5, 1]
         }}
-        transition={{ 
+        transition={shouldReduceMotion ? {} : { 
           duration: 4, 
           repeat: Infinity, 
           ease: "easeInOut",
@@ -62,12 +63,12 @@ export default function Hero() {
       {/* Additional floating elements */}
       <motion.div 
         className="absolute top-1/3 left-1/2 w-6 h-6 bg-accent/30 rounded-full"
-        animate={{ 
+        animate={shouldReduceMotion ? {} : { 
           y: [0, -30, 0],
           x: [0, 15, 0],
           opacity: [0.3, 0.7, 0.3]
         }}
-        transition={{ 
+        transition={shouldReduceMotion ? {} : { 
           duration: 5, 
           repeat: Infinity, 
           ease: "easeInOut",
@@ -77,12 +78,12 @@ export default function Hero() {
       
       <motion.div 
         className="absolute bottom-1/4 left-1/3 w-10 h-10 border-2 border-primary/20 rounded-full"
-        animate={{ 
+        animate={shouldReduceMotion ? {} : { 
           y: [0, -20, 0],
           rotate: [0, 180, 360],
           scale: [1, 1.3, 1]
         }}
-        transition={{ 
+        transition={shouldReduceMotion ? {} : { 
           duration: 7, 
           repeat: Infinity, 
           ease: "easeInOut",
@@ -92,12 +93,12 @@ export default function Hero() {
       
       <motion.div 
         className="absolute top-3/4 right-1/6 w-4 h-4 bg-gradient-to-br from-primary to-accent rounded-full"
-        animate={{ 
+        animate={shouldReduceMotion ? {} : { 
           y: [0, -40, 0],
           opacity: [0.4, 1, 0.4],
           scale: [0.8, 1.2, 0.8]
         }}
-        transition={{ 
+        transition={shouldReduceMotion ? {} : { 
           duration: 6, 
           repeat: Infinity, 
           ease: "easeInOut",
