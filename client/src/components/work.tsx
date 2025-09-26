@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
+import { Link } from "wouter";
 
 // Projects data will be generated using translations
 
@@ -146,12 +147,14 @@ export default function Work() {
               <div className="sm:hidden absolute bottom-0 left-0 right-0 bg-black/90 backdrop-blur-sm p-4 z-10">
                 <h3 className="text-lg font-bold mb-2 text-white">{project.title}</h3>
                 <p className="text-sm text-white/90 mb-3">{project.result}</p>
-                <button 
-                  className="bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm w-full"
-                  data-testid={`button-view-details-mobile-${project.id}`}
-                >
-                  {t("work.viewDetails")}
-                </button>
+                <Link href={`/project/${project.id}`}>
+                  <button 
+                    className="bg-primary text-white px-4 py-2 rounded-lg font-medium text-sm w-full"
+                    data-testid={`button-view-details-mobile-${project.id}`}
+                  >
+                    {t("work.viewDetails")}
+                  </button>
+                </Link>
               </div>
 
               {/* Desktop hover overlay */}
@@ -165,12 +168,14 @@ export default function Work() {
                   <p className="text-lg mb-6 text-white/90">
                     {project.result}
                   </p>
-                  <button 
-                    className="bg-primary/90 backdrop-blur-sm border border-primary text-white px-6 py-3 rounded-lg font-medium transition-all hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    data-testid={`button-view-details-${project.id}`}
-                  >
-                    {t("work.viewDetails")}
-                  </button>
+                  <Link href={`/project/${project.id}`}>
+                    <button 
+                      className="bg-primary/90 backdrop-blur-sm border border-primary text-white px-6 py-3 rounded-lg font-medium transition-all hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      data-testid={`button-view-details-${project.id}`}
+                    >
+                      {t("work.viewDetails")}
+                    </button>
+                  </Link>
                 </div>
               </div>
               

@@ -3,7 +3,9 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "./lib/i18n";
+import { Router, Route } from "wouter";
 import Home from "@/pages/home";
+import ProjectDetail from "@/pages/project-detail";
 
 function App() {
   return (
@@ -11,7 +13,10 @@ function App() {
       <LanguageProvider>
         <TooltipProvider>
           <Toaster />
-          <Home />
+          <Router>
+            <Route path="/" component={Home} />
+            <Route path="/project/:id" component={ProjectDetail} />
+          </Router>
         </TooltipProvider>
       </LanguageProvider>
     </QueryClientProvider>
