@@ -179,7 +179,7 @@ export default function Work() {
 
               {/* Desktop hover overlay */}
               <div 
-                className="project-overlay hidden sm:flex absolute inset-0 bg-black/80 backdrop-blur-sm items-center justify-center opacity-0 translate-y-5 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto"
+                className="project-overlay hidden sm:flex absolute inset-0 bg-black/80 backdrop-blur-sm items-center justify-center opacity-0 translate-y-5 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto z-20"
               >
                 <div className="text-center px-6">
                   <h3 className="text-2xl font-bold mb-3 text-white">
