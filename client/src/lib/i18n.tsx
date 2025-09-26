@@ -45,9 +45,9 @@ const translations = {
     // Work
     "work.title": "Featured Work",
     "work.subtitle": "Case studies of transformative digital campaigns for ambitious brands",
-    "work.project1.title": "TechFlow Solutions",
+    "work.project1.title": "Wear the Vision",
     "work.project1.category": "E-commerce",
-    "work.project1.result": "350% ROAS increase in 6 months",
+    "work.project1.result": "Premium cap store with optimized UX",
     "work.project2.title": "DataViz Pro", 
     "work.project2.category": "SaaS",
     "work.project2.result": "5x lead generation growth",
@@ -150,9 +150,9 @@ const translations = {
     // Work
     "work.title": "Études de Cas",
     "work.subtitle": "Exemples de campagnes digitales qui ont transformé des marques ambitieuses",
-    "work.project1.title": "TechFlow Solutions",
+    "work.project1.title": "Wear the Vision",
     "work.project1.category": "E-commerce",
-    "work.project1.result": "+350% de retour sur dépenses publicitaires en 6 mois",
+    "work.project1.result": "Boutique de casquettes premium avec UX optimisée",
     "work.project2.title": "DataViz Pro",
     "work.project2.category": "SaaS",
     "work.project2.result": "Croissance x5 en génération de leads",
