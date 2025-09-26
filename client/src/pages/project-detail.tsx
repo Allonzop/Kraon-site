@@ -4,6 +4,8 @@ import { ArrowLeft, Globe, TrendingUp, Users, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n";
 import visionLogo from "@assets/Logo Tech Blanc_1758895568511.png";
+import capImage from "@assets/IMG_0371_1758895568511.jpeg";
+import previewVideo from "@assets/ScreenRecording_04-27-2025 01-51-19_1_1758895568511.mp4";
 
 export default function ProjectDetail() {
   const { t, language } = useLanguage();
