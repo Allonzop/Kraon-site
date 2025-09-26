@@ -146,7 +146,7 @@ export default function Contact() {
                       id="name"
                       {...register("name")}
                       className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
-                      placeholder={t("contact.form.namePlaceholder")}
+                      placeholder={t("contact.placeholder.name")}
                       data-testid="input-name"
                     />
                   </motion.div>
@@ -177,7 +177,7 @@ export default function Contact() {
                       id="company"
                       {...register("company")}
                       className="form-field w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 hover:border-primary/50"
-                      placeholder={t("contact.form.companyPlaceholder")}
+                      placeholder={t("contact.placeholder.company")}
                       data-testid="input-company"
                     />
                   </motion.div>
