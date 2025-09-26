@@ -181,43 +181,26 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      {/* Product Gallery */}
+      {/* Design Process - Video Left */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              {language === "fr" ? "Galerie du Projet" : "Project Gallery"}
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              {language === "fr" 
-                ? "Découvrez le produit et l'aperçu du site réalisé" 
-                : "Discover the product and preview of the website created"
-              }
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Video Section */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.8 }}
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 border border-white/10">
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 border border-white/10">
                 <video 
                   src={previewVideo}
-                  controls
-                  poster={capImage}
-                  className="w-full h-full object-cover"
-                  preload="metadata"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-auto object-contain"
                 >
                   {language === "fr" 
                     ? "Votre navigateur ne supporte pas les vidéos HTML5." 
@@ -225,16 +208,84 @@ export default function ProjectDetail() {
                   }
                 </video>
               </div>
-              <p className="text-sm text-muted-foreground mt-4 text-center">
-                {language === "fr" ? "Aperçu du site Wear the Vision" : "Wear the Vision website preview"}
-              </p>
             </motion.div>
 
-            {/* Cap Image Section */}
+            {/* Content Section */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-2xl sm:text-3xl font-bold mb-6">
+                {language === "fr" ? "Navigation & Experience" : "Navigation & Experience"}
+              </h3>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                {language === "fr" 
+                  ? "Interface intuitive avec navigation fluide, mettant en valeur les produits durables à travers une expérience utilisateur soignée et des animations subtiles."
+                  : "Intuitive interface with smooth navigation, showcasing sustainable products through refined user experience and subtle animations."
+                }
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span>{language === "fr" ? "Animation fluide au scroll" : "Smooth scroll animations"}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-accent rounded-full" />
+                  <span>{language === "fr" ? "Design mobile-first" : "Mobile-first design"}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span>{language === "fr" ? "Temps de chargement optimisé" : "Optimized loading times"}</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Focus - Image Right */}
+      <section className="py-16 bg-muted/30">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Content Section */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-2xl sm:text-3xl font-bold mb-6">
+                {language === "fr" ? "Produit Premium" : "Premium Product"}
+              </h3>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                {language === "fr" 
+                  ? "Casquettes durables fabriquées à partir de matières recyclées, alliant style moderne et engagement écologique. Design intemporel pour un public conscient."
+                  : "Sustainable caps made from recycled materials, combining modern style with ecological commitment. Timeless design for conscious consumers."
+                }
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-accent rounded-full" />
+                  <span>{language === "fr" ? "Tissu premium recyclé" : "Premium recycled fabric"}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span>{language === "fr" ? "Broderie haute qualité" : "High-quality embroidery"}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-accent rounded-full" />
+                  <span>{language === "fr" ? "Emballage éco-responsable" : "Eco-responsible packaging"}</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Image Section */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
               className="relative"
             >
@@ -243,11 +294,9 @@ export default function ProjectDetail() {
                   src={capImage}
                   alt={language === "fr" ? "Casquette Wear the Vision" : "Wear the Vision Cap"}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
-              <p className="text-sm text-muted-foreground mt-4 text-center">
-                {language === "fr" ? "Casquette premium durable" : "Premium sustainable cap"}
-              </p>
             </motion.div>
           </div>
         </div>
