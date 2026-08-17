@@ -61,11 +61,16 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
-  server.listen({
+  // `reusePort` is a Linux-only socket option (used on Replit); it throws
+  // ENOTSUP on Windows/macOS, so only enable it where it's actually supported.
+  const listenOptions: { port: number; host: string; reusePort?: boolean } = {
     port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
+    host: process.platform === "linux" ? "0.0.0.0" : "127.0.0.1",
+  };
+  if (process.platform === "linux") {
+    listenOptions.reusePort = true;
+  }
+  server.listen(listenOptions, () => {
     log(`serving on port ${port}`);
   });
 })();

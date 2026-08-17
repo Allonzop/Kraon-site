@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
+/* Inter is loaded via a preconnected <link> in index.html for faster first paint. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -173,6 +172,54 @@ body {
   @keyframes gradient-shift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
+  }
+
+  /* Infinite keyword marquee (see Marquee component) */
+  .marquee {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .marquee-track {
+    animation-name: marquee;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+
+  /* Auto-scrolling website preview (see ScrollPreview component) */
+  @keyframes scroll-preview {
+    0%, 4% { transform: translateY(0); }
+    48%, 52% { transform: translateY(var(--scroll-d, 0)); }
+    96%, 100% { transform: translateY(0); }
+  }
+
+  .scroll-preview-anim {
+    animation: scroll-preview var(--scroll-dur, 24s) linear infinite;
+  }
+
+  .scroll-preview-frame:hover .scroll-preview-anim {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-preview-anim {
+      animation: none;
+    }
   }
 
   /* Reduced motion support */

@@ -4,3 +4,11 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
+
+# Secrets & captured personal data — never commit
+.env
+.data/
+
+# Outils/état locaux (Claude Code, préférences) — hors du repo
+.claude/
+.local/

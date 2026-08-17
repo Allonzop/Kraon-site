@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { submitNetlifyForm } from "@/lib/netlify-forms";
 import { useLanguage } from "@/lib/i18n";
 
 const createContactSchema = (t: any) => z.object({
@@ -54,6 +55,19 @@ export default function Contact() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
+      // En production, la capture passe par Netlify Forms ; en dev local, par
+      // l'API Express (utile pour tester sans déployer).
+      if (import.meta.env.PROD) {
+        await submitNetlifyForm("contact", {
+          name: data.name,
+          company: data.company,
+          email: data.email,
+          phone: data.phone || "",
+          message: data.message,
+          consent: data.consent ? "oui" : "non",
+        });
+        return { success: true };
+      }
       const response = await apiRequest("POST", "/api/contact", data);
       return response.json();
     },

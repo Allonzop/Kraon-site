@@ -1,60 +1,29 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useParams, Link } from "wouter";
-import { ArrowLeft, Globe, TrendingUp, Users, Award } from "lucide-react";
+import { ArrowLeft, Globe, TrendingUp, Award, Quote, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n";
-import visionLogo from "@assets/Logo Tech Blanc_1758895568511.png";
-import capImage from "@assets/IMG_0371_1758895568511.jpeg";
-import previewVideo from "@assets/ScreenRecording_04-27-2025 01-51-19_1_1758897650411.mov";
+import { getProject, loc, type ShowcaseBlock } from "@/lib/projects";
+import ScrollPreview from "@/components/scroll-preview";
+import NotFound from "@/pages/not-found";
 
 export default function ProjectDetail() {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const params = useParams();
-  
-  // For now, we'll show Wear the Vision details regardless of ID
-  // In a real app, you'd fetch project data based on the ID
-  
-  const projectData = {
-    title: "Wear the Vision",
-    subtitle: language === "fr" ? "Casquettes Premium Durables" : "Premium Sustainable Caps",
-    url: "wear-the-vision.fr",
-    category: "E-commerce",
-    year: "2024",
-    description: language === "fr" 
-      ? "Création d'une boutique e-commerce premium spécialisée dans les casquettes durables. Design moderne, UX optimisée et stratégie marketing complète."
-      : "Creation of a premium e-commerce store specializing in sustainable caps. Modern design, optimized UX and complete marketing strategy.",
-    
-    challenges: language === "fr" ? [
-      "Positionnement premium sur un marché concurrentiel",
-      "Communication de la valeur durable",
-      "Optimisation des conversions e-commerce",
-      "Création d'une identité de marque forte"
-    ] : [
-      "Premium positioning in a competitive market",
-      "Communicating sustainable value",
-      "E-commerce conversion optimization", 
-      "Creating strong brand identity"
-    ],
-    
-    solutions: language === "fr" ? [
-      "Design épuré et moderne avec focus sur la durabilité",
-      "Storytelling autour des valeurs écologiques",
-      "Parcours d'achat optimisé et intuitif",
-      "Stratégie de contenu engageante sur les réseaux"
-    ] : [
-      "Clean and modern design focused on sustainability",
-      "Storytelling around ecological values",
-      "Optimized and intuitive purchase journey",
-      "Engaging content strategy on social networks"
-    ],
-    
-    results: {
-      conversionRate: "+187%",
-      organicTraffic: "+245%", 
-      averageBasket: "€67",
-      retentionRate: "73%"
-    }
-  };
+  const project = getProject(params.id);
+
+  // Land at the top of the page when opening a project.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [params.id]);
+
+  // Unknown id → 404.
+  if (!project) {
+    return <NotFound />;
+  }
+
+  const Icon = project.icon;
 
   return (
     <div className="min-h-screen bg-background">
@@ -67,68 +36,111 @@ export default function ProjectDetail() {
               {language === "fr" ? "Retour aux projets" : "Back to projects"}
             </Button>
           </Link>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center border border-white/20">
-                <img 
-                  src={visionLogo} 
-                  alt="Vision Logo" 
-                  className="h-8 w-auto object-contain"
-                />
+              <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center border border-white/20 shrink-0 px-1.5">
+                {project.logo ? (
+                  <img
+                    src={project.logo}
+                    alt={`${project.title} logo`}
+                    className={`w-auto object-contain ${project.logoClassName ?? "h-8"}`}
+                  />
+                ) : (
+                  <Icon className="w-6 h-6 text-primary" aria-hidden="true" />
+                )}
               </div>
               <div>
-                <h1 className="text-3xl sm:text-4xl font-bold">{projectData.title}</h1>
-                <p className="text-lg text-muted-foreground">{projectData.subtitle}</p>
+                <h1 className="text-3xl sm:text-4xl font-bold">{project.title}</h1>
+                <p className="text-lg text-muted-foreground">{loc(project.subtitle, language)}</p>
               </div>
             </div>
-            
-            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2">
-                <Globe className="w-4 h-4" />
-                {projectData.url}
-              </span>
+
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              {project.url && (
+                <>
+                  <span className="flex items-center gap-2">
+                    <Globe className="w-4 h-4" />
+                    {project.url}
+                  </span>
+                  <span>•</span>
+                </>
+              )}
+              <span>{loc(project.category, language)}</span>
               <span>•</span>
-              <span>{projectData.category}</span>
-              <span>•</span>
-              <span>{projectData.year}</span>
+              <span>{project.year}</span>
+              {project.isPlaceholder && (
+                <span className="ml-auto text-xs px-2 py-1 rounded-full border border-accent/40 text-accent/90 bg-accent/10">
+                  {language === "fr" ? "Étude de cas exemple" : "Sample case study"}
+                </span>
+              )}
             </div>
+
+            {project.demoPath && (
+              <Link href={project.demoPath}>
+                <Button className="mt-6 group glow-blue" data-testid="button-live-demo">
+                  {language === "fr" ? "Voir la démo live" : "View live demo"}
+                  <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Button>
+              </Link>
+            )}
           </motion.div>
         </div>
       </section>
 
-      {/* Hero Image */}
+      {/* Hero visual */}
       <section className="py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl overflow-hidden"
+            className={`relative aspect-video bg-gradient-to-br ${project.gradient} rounded-2xl overflow-hidden`}
           >
-            <div className="absolute inset-0 bg-black/10" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-white">
-                <div className="w-24 h-24 bg-black/80 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 mx-auto border border-white/20">
-                  <img 
-                    src={visionLogo} 
-                    alt="Vision Logo" 
-                    className="h-12 w-auto object-contain"
-                  />
+            {project.heroImage ? (
+              <img
+                src={project.heroImage}
+                alt={`${project.title} — ${loc(project.subtitle, language)}`}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+                loading="eager"
+              />
+            ) : (
+              <div
+                className="absolute inset-0 opacity-40"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)`,
+                  backgroundSize: "44px 44px",
+                }}
+                aria-hidden="true"
+              />
+            )}
+
+            <div className={`absolute inset-0 flex items-center justify-center ${project.heroImage ? "bg-gradient-to-t from-black/85 via-black/55 to-black/45" : ""}`}>
+              <div className="text-center text-white px-4">
+                <div className="w-24 h-24 bg-black/80 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 mx-auto border border-white/20 px-3">
+                  {project.logo ? (
+                    <img
+                      src={project.logo}
+                      alt={`${project.title} logo`}
+                      className={`w-auto object-contain ${project.heroImage ? "h-8" : "h-12"}`}
+                    />
+                  ) : (
+                    <Icon className="w-11 h-11 text-white" aria-hidden="true" />
+                  )}
                 </div>
-                <h3 className="text-2xl font-bold mb-2">{projectData.title}</h3>
-                <p className="text-white/80">{language === "fr" ? "Futur | Durable | Libre" : "Future | Sustainable | Free"}</p>
+                <h3 className="text-2xl font-bold mb-2 drop-shadow-lg">{project.title}</h3>
+                <p className="text-white/90 drop-shadow-md">{loc(project.heroTagline, language)}</p>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Project Overview */}
+      {/* Overview + metrics */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -142,22 +154,16 @@ export default function ProjectDetail() {
                 {language === "fr" ? "Vue d'ensemble" : "Project Overview"}
               </h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                {projectData.description}
+                {loc(project.description, language)}
               </p>
-              
+
               <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span>{language === "fr" ? "100% matières recyclées" : "100% recycled materials"}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-accent rounded-full" />
-                  <span>{language === "fr" ? "387L d'eau économisés par casquette" : "387L water saved per cap"}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span>{language === "fr" ? "Expédition sans plastique" : "Plastic-free shipping"}</span>
-                </div>
+                {project.overviewHighlights.map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className={`w-2 h-2 rounded-full ${i % 2 === 0 ? "bg-primary" : "bg-accent"}`} />
+                    <span>{loc(item, language)}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
 
@@ -168,12 +174,10 @@ export default function ProjectDetail() {
               viewport={{ once: true }}
               className="grid grid-cols-2 gap-6"
             >
-              {Object.entries(projectData.results).map(([key, value], index) => (
-                <div key={key} className="glass p-6 rounded-xl text-center">
-                  <div className="text-2xl font-bold text-primary mb-2">{value}</div>
-                  <div className="text-sm text-muted-foreground capitalize">
-                    {key.replace(/([A-Z])/g, ' $1').trim()}
-                  </div>
+              {project.metrics.map((metric, i) => (
+                <div key={i} className="glass p-6 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-primary mb-2">{metric.value}</div>
+                  <div className="text-sm text-muted-foreground">{loc(metric.label, language)}</div>
                 </div>
               ))}
             </motion.div>
@@ -181,132 +185,39 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      {/* Design Process - Video Left */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Video Section */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 border border-white/10">
-                <video 
-                  src={previewVideo}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto object-contain"
-                >
-                  {language === "fr" 
-                    ? "Votre navigateur ne supporte pas les vidéos HTML5." 
-                    : "Your browser does not support HTML5 video."
-                  }
-                </video>
-              </div>
-            </motion.div>
-
-            {/* Content Section */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-2xl sm:text-3xl font-bold mb-6">
-                {language === "fr" ? "Navigation & Experience" : "Navigation & Experience"}
-              </h3>
-              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                {language === "fr" 
-                  ? "Interface intuitive avec navigation fluide, mettant en valeur les produits durables à travers une expérience utilisateur soignée et des animations subtiles."
-                  : "Intuitive interface with smooth navigation, showcasing sustainable products through refined user experience and subtle animations."
-                }
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span>{language === "fr" ? "Animation fluide au scroll" : "Smooth scroll animations"}</span>
+      {/* Showcase blocks (alternating) */}
+      {project.showcases.map((block, i) => (
+        <section key={i} className={`py-16 ${i % 2 === 1 ? "bg-muted/30" : ""}`}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <ShowcaseMedia block={block} language={language} order={block.reverse ? "lg:order-2" : ""} />
+              <motion.div
+                initial={{ opacity: 0, x: block.reverse ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className={block.reverse ? "lg:order-1" : ""}
+              >
+                <h3 className="text-2xl sm:text-3xl font-bold mb-6">{loc(block.title, language)}</h3>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">{loc(block.desc, language)}</p>
+                <div className="space-y-4">
+                  {block.highlights.map((h, hi) => (
+                    <div key={hi} className="flex items-center gap-3">
+                      <div className={`w-2 h-2 rounded-full ${hi % 2 === 0 ? "bg-primary" : "bg-accent"}`} />
+                      <span>{loc(h, language)}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-accent rounded-full" />
-                  <span>{language === "fr" ? "Design mobile-first" : "Mobile-first design"}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span>{language === "fr" ? "Temps de chargement optimisé" : "Optimized loading times"}</span>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* Product Focus - Image Right */}
-      <section className="py-16 bg-muted/30">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Content Section */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-2xl sm:text-3xl font-bold mb-6">
-                {language === "fr" ? "Produit Premium" : "Premium Product"}
-              </h3>
-              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                {language === "fr" 
-                  ? "Casquettes durables fabriquées à partir de matières recyclées, alliant style moderne et engagement écologique. Design intemporel pour un public conscient."
-                  : "Sustainable caps made from recycled materials, combining modern style with ecological commitment. Timeless design for conscious consumers."
-                }
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-accent rounded-full" />
-                  <span>{language === "fr" ? "Tissu premium recyclé" : "Premium recycled fabric"}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full" />
-                  <span>{language === "fr" ? "Broderie haute qualité" : "High-quality embroidery"}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-accent rounded-full" />
-                  <span>{language === "fr" ? "Emballage éco-responsable" : "Eco-responsible packaging"}</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Image Section */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 border border-white/10">
-                <img 
-                  src={capImage}
-                  alt={language === "fr" ? "Casquette Wear the Vision" : "Wear the Vision Cap"}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+        </section>
+      ))}
 
       {/* Challenges & Solutions */}
       <section className="py-16 bg-muted/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Challenges */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -318,16 +229,15 @@ export default function ProjectDetail() {
                 {language === "fr" ? "Défis" : "Challenges"}
               </h3>
               <div className="space-y-4">
-                {projectData.challenges.map((challenge, index) => (
-                  <div key={index} className="flex items-start gap-3">
+                {project.challenges.map((challenge, i) => (
+                  <div key={i} className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                    <p className="text-muted-foreground">{challenge}</p>
+                    <p className="text-muted-foreground">{loc(challenge, language)}</p>
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* Solutions */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -339,10 +249,10 @@ export default function ProjectDetail() {
                 {language === "fr" ? "Solutions" : "Solutions"}
               </h3>
               <div className="space-y-4">
-                {projectData.solutions.map((solution, index) => (
-                  <div key={index} className="flex items-start gap-3">
+                {project.solutions.map((solution, i) => (
+                  <div key={i} className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-                    <p className="text-muted-foreground">{solution}</p>
+                    <p className="text-muted-foreground">{loc(solution, language)}</p>
                   </div>
                 ))}
               </div>
@@ -351,7 +261,32 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Client testimonial */}
+      {project.testimonial && (
+        <section className="py-16">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.figure
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="glass rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden"
+            >
+              <Quote className="w-10 h-10 text-primary/40 mx-auto mb-6" aria-hidden="true" />
+              <blockquote className="text-xl sm:text-2xl font-medium leading-relaxed mb-8">
+                “{loc(project.testimonial.quote, language)}”
+              </blockquote>
+              <figcaption className="flex flex-col items-center gap-1">
+                <span className="font-semibold text-lg">{project.testimonial.author}</span>
+                <span className="text-sm text-muted-foreground">{loc(project.testimonial.role, language)}</span>
+              </figcaption>
+              <div className="absolute -inset-x-10 -bottom-10 h-32 bg-gradient-to-t from-primary/10 to-transparent blur-2xl" aria-hidden="true" />
+            </motion.figure>
+          </div>
+        </section>
+      )}
+
+      {/* CTA */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -361,12 +296,12 @@ export default function ProjectDetail() {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              {language === "fr" ? "Prêt à booster votre e-commerce ?" : "Ready to boost your e-commerce?"}
+              {language === "fr" ? "Prêt à lancer votre projet ?" : "Ready to start your project?"}
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              {language === "fr" 
-                ? "Discutons de votre projet et créons ensemble une expérience client exceptionnelle." 
-                : "Let's discuss your project and create an exceptional customer experience together."}
+              {language === "fr"
+                ? "Discutons de votre projet et créons ensemble une expérience exceptionnelle."
+                : "Let's discuss your project and create an exceptional experience together."}
             </p>
             <Link href="/#contact">
               <Button size="lg" className="text-lg px-8" data-testid="button-start-project">
@@ -377,5 +312,76 @@ export default function ProjectDetail() {
         </div>
       </section>
     </div>
+  );
+}
+
+function ShowcaseMedia({
+  block,
+  language,
+  order,
+}: {
+  block: ShowcaseBlock;
+  language: "fr" | "en";
+  order: string;
+}) {
+  const { media } = block;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: block.reverse ? 50 : -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className={`relative ${order}`}
+    >
+      {media.kind === "video" && (
+        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 border border-white/10">
+          <video
+            src={media.src}
+            poster={media.poster}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="w-full h-auto object-contain"
+          >
+            {language === "fr"
+              ? "Votre navigateur ne supporte pas les vidéos HTML5."
+              : "Your browser does not support HTML5 video."}
+          </video>
+        </div>
+      )}
+
+      {media.kind === "image" && (
+        <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 border border-white/10">
+          <img src={media.src} alt={loc(media.alt, language)} className="w-full h-full object-cover" loading="lazy" />
+        </div>
+      )}
+
+      {media.kind === "scrollPreview" && (
+        <ScrollPreview src={media.src} alt={loc(media.alt, language)} url={media.url} />
+      )}
+
+      {media.kind === "placeholder" && (
+        <div
+          className={`relative ${
+            media.aspect === "square" ? "aspect-square" : "aspect-video"
+          } rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 border border-white/10 flex items-center justify-center`}
+        >
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+              backgroundSize: "36px 36px",
+            }}
+            aria-hidden="true"
+          />
+          <span className="relative text-sm text-muted-foreground px-4 py-2 rounded-full border border-white/15 bg-background/40 backdrop-blur-sm">
+            {language === "fr" ? "Visuel à venir" : "Visual coming soon"}
+          </span>
+        </div>
+      )}
+    </motion.div>
   );
 }

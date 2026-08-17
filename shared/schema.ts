@@ -12,3 +12,14 @@ export const contactSchema = z.object({
 export type ContactFormData = z.infer<typeof contactSchema>;
 
 export interface ContactRequest extends ContactFormData {}
+
+// Lead capture (e.g. the free scorecard tool) — lighter than a full contact.
+export const leadSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
+  source: z.string().default("audit"),
+  score: z.number().min(0).max(100).optional(),
+  details: z.record(z.union([z.string(), z.number()])).optional(),
+  consent: z.boolean().refine((val) => val === true, "You must agree to receive communications"),
+});
+
+export type LeadData = z.infer<typeof leadSchema>;

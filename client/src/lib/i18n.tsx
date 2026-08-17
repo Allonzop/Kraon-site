@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
 export type Language = "en" | "fr";
 
@@ -21,6 +21,7 @@ const translations = {
     "nav.consultation": "Request Consultation",
     
     // Hero
+    "hero.badge": "Available for new projects",
     "hero.headline": "Premium Digital Marketing for Ambitious SMEs",
     "hero.subtext": "Strategy, performance, and design — tailored to your growth.",
     "hero.cta.proposal": "Get a Proposal",
@@ -44,7 +45,7 @@ const translations = {
     
     // Work
     "work.title": "Featured Work",
-    "work.subtitle": "Case studies of transformative digital campaigns for ambitious brands",
+    "work.subtitle": "Bespoke projects — premium websites, e-commerce and products — built to convert",
     "work.project1.title": "Wear the Vision",
     "work.project1.category": "E-commerce",
     "work.project1.result": "Premium cap store with optimized UX",
@@ -77,11 +78,11 @@ const translations = {
     
     // About
     "about.title": "About KRAON",
-    "about.description": "We're a premium digital marketing agency exclusively focused on ambitious SMEs. Our data-driven approach and cutting-edge strategies have helped hundreds of businesses scale from startup to market leader. We don't just run campaigns—we build growth engines.",
+    "about.description": "We're a premium digital agency for ambitious SMEs and brands. We bring together bespoke design, high-performance development and conversion-focused copywriting. We don't just make things look good — we build sites and experiences that turn visitors into customers.",
     "about.badge1.value": "5+",
     "about.badge1.label": "Years Experience",
-    "about.badge2.value": "400%",
-    "about.badge2.label": "Avg ROAS Increase",
+    "about.badge2.value": "100%",
+    "about.badge2.label": "bespoke, design + dev",
     "about.badge3.value": "<24h",
     "about.badge3.label": "Response Time",
     "about.team1.name": "Sarah Chen",
@@ -111,9 +112,28 @@ const translations = {
     "contact.placeholder.email": "your@email.com",
     "contact.placeholder.phone": "+1 (555) 123-4567",
     "contact.placeholder.message": "Tell us about your business goals and how we can help...",
-    
+    "contact.success.title": "Message Sent!",
+    "contact.success.subtitle": "We'll get back to you within 24 hours.",
+    "contact.success.toast.title": "Message sent successfully",
+    "contact.success.toast.description": "Thanks for reaching out — we'll reply within 24 hours.",
+    "contact.error.toast.title": "Something went wrong",
+    "contact.error.toast.description": "Your message couldn't be sent. Please try again in a moment.",
+    "contact.validation.nameRequired": "Name is required",
+    "contact.validation.nameMin": "Name must be at least 2 characters",
+    "contact.validation.companyRequired": "Company is required",
+    "contact.validation.companyMin": "Company must be at least 2 characters",
+    "contact.validation.emailRequired": "Email is required",
+    "contact.validation.emailInvalid": "Please enter a valid email address",
+    "contact.validation.messageRequired": "Message is required",
+    "contact.validation.messageMin": "Message must be at least 10 characters",
+    "contact.validation.consentRequired": "You must agree to receive communications",
+
     // Footer
     "footer.tagline": "Premium Digital Marketing for Ambitious SMEs",
+    "footer.description": "We build growth engines for ambitious SMEs — strategy, performance and design under one roof.",
+    "footer.navTitle": "Navigation",
+    "footer.ctaTitle": "Ready to grow?",
+    "footer.cta": "Start a project",
     "footer.rights": "© 2024 KRAON. All rights reserved."
   },
   fr: {
@@ -126,6 +146,7 @@ const translations = {
     "nav.consultation": "Demander une consultation",
     
     // Hero
+    "hero.badge": "Disponible pour de nouveaux projets",
     "hero.headline": "Marketing digital premium pour les PME ambitieuses",
     "hero.subtext": "Stratégie, performance et design — pensés pour votre croissance.",
     "hero.cta.proposal": "Demander une proposition",
@@ -149,7 +170,7 @@ const translations = {
     
     // Work
     "work.title": "Études de Cas",
-    "work.subtitle": "Exemples de campagnes digitales qui ont transformé des marques ambitieuses",
+    "work.subtitle": "Des projets sur-mesure — sites premium, e-commerce et produits — pensés pour convertir",
     "work.project1.title": "Wear the Vision",
     "work.project1.category": "E-commerce",
     "work.project1.result": "Boutique de casquettes premium avec UX optimisée",
@@ -182,11 +203,11 @@ const translations = {
     
     // About
     "about.title": "À propos de KRAON",
-    "about.description": "Nous sommes une agence de marketing digital premium, dédiée exclusivement aux PME ambitieuses. Notre approche data-driven et nos stratégies innovantes ont permis à des centaines d'entreprises de passer du statut de startup à celui de leader de marché. Nous ne lançons pas seulement des campagnes — nous construisons de véritables moteurs de croissance.",
+    "about.description": "Nous sommes une agence digitale premium au service des PME et des marques ambitieuses. Nous réunissons design sur-mesure, développement performant et copywriting orienté conversion. On ne se contente pas de faire joli : on construit des sites et des expériences qui transforment les visiteurs en clients.",
     "about.badge1.value": "5+",
     "about.badge1.label": "années d'expérience",
-    "about.badge2.value": "+400%",
-    "about.badge2.label": "de ROAS en moyenne",
+    "about.badge2.value": "100%",
+    "about.badge2.label": "sur-mesure, design + dev",
     "about.badge3.value": "< 24h",
     "about.badge3.label": "de temps de réponse",
     "about.team1.name": "Sarah Chen",
@@ -216,15 +237,39 @@ const translations = {
     "contact.placeholder.email": "votre@email.com",
     "contact.placeholder.phone": "+33 1 23 45 67 89",
     "contact.placeholder.message": "Parlez-nous de vos objectifs business et comment nous pouvons vous aider...",
-    
+    "contact.success.title": "Message envoyé !",
+    "contact.success.subtitle": "Nous vous recontacterons sous 24 heures.",
+    "contact.success.toast.title": "Message envoyé avec succès",
+    "contact.success.toast.description": "Merci de nous avoir contactés — nous vous répondrons sous 24 heures.",
+    "contact.error.toast.title": "Une erreur est survenue",
+    "contact.error.toast.description": "Votre message n'a pas pu être envoyé. Merci de réessayer dans un instant.",
+    "contact.validation.nameRequired": "Le nom est requis",
+    "contact.validation.nameMin": "Le nom doit contenir au moins 2 caractères",
+    "contact.validation.companyRequired": "L'entreprise est requise",
+    "contact.validation.companyMin": "L'entreprise doit contenir au moins 2 caractères",
+    "contact.validation.emailRequired": "L'email est requis",
+    "contact.validation.emailInvalid": "Veuillez saisir une adresse email valide",
+    "contact.validation.messageRequired": "Le message est requis",
+    "contact.validation.messageMin": "Le message doit contenir au moins 10 caractères",
+    "contact.validation.consentRequired": "Vous devez accepter de recevoir nos communications",
+
     // Footer
     "footer.tagline": "Marketing digital premium pour les PME ambitieuses",
+    "footer.description": "Nous construisons des moteurs de croissance pour les PME ambitieuses — stratégie, performance et design réunis.",
+    "footer.navTitle": "Navigation",
+    "footer.ctaTitle": "Prêt à passer à l'action ?",
+    "footer.cta": "Démarrer un projet",
     "footer.rights": "© 2024 KRAON. Tous droits réservés."
   }
 };
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("fr");
+
+  // Keep the document language in sync for accessibility & SEO.
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations[typeof language]] || key;

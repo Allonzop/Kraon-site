@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
+import CountUp from "@/components/effects/count-up";
 
 // Data will be generated using translations
 
@@ -61,11 +62,11 @@ export default function About() {
                 whileHover={{ y: -10, scale: 1.05 }}
                 data-testid={`trust-badge-${index}`}
               >
-                <motion.div 
+                <motion.div
                   className="text-4xl lg:text-5xl font-bold gradient-text mb-3"
                   whileHover={{ scale: 1.1 }}
                 >
-                  {badge.value}
+                  <CountUp value={badge.value} />
                 </motion.div>
                 <div className="text-sm lg:text-base text-muted-foreground font-medium">{badge.label}</div>
               </motion.div>

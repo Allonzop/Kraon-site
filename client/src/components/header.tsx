@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n";
+import Magnetic from "@/components/effects/magnetic";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -95,10 +96,7 @@ export default function Header() {
                 <span className="text-sm font-medium">{language.toUpperCase()}</span>
               </motion.button>
               
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <Magnetic strength={0.5}>
                 <Button
                   onClick={() => scrollToSection("contact")}
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-3 xl:px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:glow-blue text-sm xl:text-base"
@@ -106,7 +104,7 @@ export default function Header() {
                 >
                   {t("nav.consultation")}
                 </Button>
-              </motion.div>
+              </Magnetic>
             </div>
           </nav>
 
@@ -128,6 +126,7 @@ export default function Header() {
         </div>
 
         {/* Mobile Navigation */}
+        <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             className="lg:hidden border-t border-border/50 bg-background/95 backdrop-blur-md"
@@ -184,6 +183,7 @@ export default function Header() {
             </div>
           </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </motion.header>
   );
