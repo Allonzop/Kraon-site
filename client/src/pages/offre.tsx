@@ -24,6 +24,7 @@ import Grain from "@/components/effects/grain";
 import ScrollProgress from "@/components/scroll-progress";
 import { submitNetlifyForm } from "@/lib/netlify-forms";
 import { projects } from "@/lib/projects";
+import { LEGAL } from "@/lib/legal-info";
 
 // Le hero montre un vrai site que nous avons réalisé (Pepiliya), en desktop + mobile.
 import mockupDesktop from "@assets/pepiliya-preview-full.jpg";
@@ -529,7 +530,14 @@ function MaquetteForm({ tracking }: { tracking: Record<string, string> }) {
           className="mt-0.5 h-4 w-4 accent-[hsl(217,91%,60%)]"
           data-testid="maquette-consent"
         />
-        J'accepte d'être recontacté(e) par KRAON au sujet de ma demande. Aucune donnée n'est partagée.
+        <span>
+          J'accepte d'être recontacté(e) par KRAON au sujet de ma demande. Vos données ne sont pas cédées à des
+          tiers —{" "}
+          <a href="/confidentialite" target="_blank" rel="noopener noreferrer" className="text-primary underline">
+            politique de confidentialité
+          </a>
+          .
+        </span>
       </label>
 
       {state === "error" && (
@@ -592,6 +600,9 @@ function CommandeForm({ tracking }: { tracking: Record<string, string> }) {
         payment_option: payment === "acompte" ? `Acompte ${OFFER.depositPct}% (${deposit}€)` : `Intégral (${OFFER.price}€)`,
         consent: "oui",
         cgv: "oui",
+        // Trace de l'acceptation des CGV (version + horodatage) pour chaque commande.
+        cgv_version: LEGAL.cgvVersion,
+        cgv_accepted_at: new Date().toISOString(),
         ...tracking,
       };
       if (import.meta.env.PROD) {
@@ -701,7 +712,7 @@ function CommandeForm({ tracking }: { tracking: Record<string, string> }) {
           <input type="checkbox" checked={cgv} onChange={(e) => setCgv(e.target.checked)} className="mt-0.5 h-4 w-4 accent-[hsl(217,91%,60%)]" data-testid="commande-cgv" />
           <span>
             J'accepte les{" "}
-            <a href="#mentions" className="text-primary underline">
+            <a href="/cgv" target="_blank" rel="noopener noreferrer" className="text-primary underline">
               conditions générales de vente
             </a>
             .
@@ -1020,7 +1031,7 @@ export default function Offre() {
                 </div>
                 <p className="mt-4 text-center text-xs text-muted-foreground">
                   Offre de lancement réservée aux {OFFER.spots} premiers clients. Fourchettes marché données à
-                  titre indicatif.
+                  titre indicatif. {LEGAL.tvaMention}.
                 </p>
               </div>
             </Reveal>
@@ -1102,7 +1113,7 @@ export default function Offre() {
       </main>
 
       {/* ---------------- FOOTER ---------------- */}
-      <footer id="mentions" className="border-t border-border bg-muted/30 px-4 py-10 sm:px-6">
+      <footer className="border-t border-border bg-muted/30 px-4 py-10 sm:px-6">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 sm:flex-row">
           <Link href="/" className="flex items-center gap-2">
             <img
@@ -1117,16 +1128,15 @@ export default function Offre() {
             <span className="text-lg font-bold">KRAON</span>
           </Link>
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-            {/* Pages légales : à brancher sur le contenu fourni par le porteur. */}
-            <a href="#mentions" className="transition-colors hover:text-primary">
+            <Link href="/mentions-legales" className="transition-colors hover:text-primary">
               Mentions légales
-            </a>
-            <a href="#mentions" className="transition-colors hover:text-primary">
+            </Link>
+            <Link href="/cgv" className="transition-colors hover:text-primary">
               CGV
-            </a>
-            <a href="#mentions" className="transition-colors hover:text-primary">
+            </Link>
+            <Link href="/confidentialite" className="transition-colors hover:text-primary">
               Confidentialité
-            </a>
+            </Link>
             <Link href="/" className="transition-colors hover:text-primary">
               Retour au site
             </Link>

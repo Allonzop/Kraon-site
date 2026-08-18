@@ -9,6 +9,7 @@ import Home from "@/pages/home";
 import ProjectDetail from "@/pages/project-detail";
 import AuditGratuit from "@/pages/audit-gratuit";
 import Offre from "@/pages/offre";
+import { MentionsLegales, Cgv, Confidentialite } from "@/pages/legal";
 import NotFound from "@/pages/not-found";
 
 // Charts-heavy demo — code-split so recharts only loads when the demo is opened.
@@ -25,6 +26,9 @@ function App() {
               <Route path="/" component={Home} />
               <Route path="/audit-gratuit" component={AuditGratuit} />
               <Route path="/offre" component={Offre} />
+              <Route path="/mentions-legales" component={MentionsLegales} />
+              <Route path="/cgv" component={Cgv} />
+              <Route path="/confidentialite" component={Confidentialite} />
               <Route path="/showcase/dataviz-pro">
                 <Suspense fallback={<div className="min-h-screen bg-background" />}>
                   <DataVizPro />

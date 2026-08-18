@@ -111,8 +111,19 @@ export default function Footer() {
           </div>
         </motion.div>
 
-        <div className="mt-12 pt-6 border-t border-border/50 text-center md:text-left">
-          <p className="text-sm text-muted-foreground">{t("footer.rights")}</p>
+        <div className="mt-12 pt-6 border-t border-border/50 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <p className="text-sm text-muted-foreground text-center md:text-left">{t("footer.rights")}</p>
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            <Link href="/mentions-legales" className="transition-colors hover:text-primary" data-testid="footer-mentions">
+              Mentions légales
+            </Link>
+            <Link href="/cgv" className="transition-colors hover:text-primary" data-testid="footer-cgv">
+              CGV
+            </Link>
+            <Link href="/confidentialite" className="transition-colors hover:text-primary" data-testid="footer-confidentialite">
+              Confidentialité
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>
