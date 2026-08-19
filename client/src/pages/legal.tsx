@@ -8,9 +8,14 @@ import { LEGAL, isTodo, missingLegalFields } from "@/lib/legal-info";
  * bandeau d'alerte si des champs obligatoires manquent, inter-liens.
  * ------------------------------------------------------------------ */
 
-/** Rend un champ ; met en évidence en ambre s'il reste à compléter. */
+/**
+ * Rend un champ. En développement, un champ vide est surligné en ambre pour
+ * signaler qu'il reste à compléter ; en production, il n'affiche rien (le
+ * public ne voit jamais de « à compléter »).
+ */
 function Val({ value, label }: { value: string; label?: string }) {
   if (isTodo(value)) {
+    if (!import.meta.env.DEV) return null;
     return (
       <span className="rounded bg-amber-500/20 px-1.5 py-0.5 font-medium text-amber-300">
         [{label ?? "à compléter"}]
@@ -65,14 +70,16 @@ function LegalShell({ title, children }: { title: string; children: ReactNode })
       </header>
 
       <main className="mx-auto max-w-3xl px-4 pb-24 pt-10 sm:px-6">
-        {missing.length > 0 && (
+        {/* Rappel visible en développement uniquement — jamais pour le public. */}
+        {import.meta.env.DEV && missing.length > 0 && (
           <div className="mb-8 flex gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">
             <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
             <div>
-              <p className="font-semibold text-amber-100">Mentions incomplètes — à finaliser avant publication</p>
+              <p className="font-semibold text-amber-100">Rappel (dev) — champs légaux à ajouter bientôt</p>
               <p className="mt-1">
-                Champs encore à renseigner par l'éditeur : {missing.join(", ")}. Renseignez-les dans{" "}
-                <code className="rounded bg-black/30 px-1">client/src/lib/legal-info.ts</code>.
+                Encore vides : {missing.join(", ")}. À renseigner dès l'immatriculation dans{" "}
+                <code className="rounded bg-black/30 px-1">client/src/lib/legal-info.ts</code>. Ce rappel n'est pas
+                visible en production.
               </p>
             </div>
           </div>
@@ -110,7 +117,6 @@ function IdentityBlock() {
       <strong>
         <Val value={LEGAL.denominationLegale} label="Dénomination / nom de l'éditeur" />
       </strong>
-      {LEGAL.enseigne && ` — enseigne « ${LEGAL.enseigne} »`}
       <br />
       Statut juridique : {LEGAL.statut}
       {LEGAL.capital && (
@@ -121,10 +127,18 @@ function IdentityBlock() {
       )}
       <br />
       Siège social : <Val value={LEGAL.adresse} label="adresse du siège" />
-      <br />
-      SIREN : <Val value={LEGAL.siren} label="SIREN" />
-      <br />
-      SIRET : <Val value={LEGAL.siret} label="SIRET" />
+      {!isTodo(LEGAL.siren) && (
+        <>
+          <br />
+          SIREN : {LEGAL.siren}
+        </>
+      )}
+      {!isTodo(LEGAL.siret) && (
+        <>
+          <br />
+          SIRET : {LEGAL.siret}
+        </>
+      )}
       {LEGAL.rcs && (
         <>
           <br />
@@ -135,8 +149,12 @@ function IdentityBlock() {
       {LEGAL.tvaMention}
       <br />
       Adresse électronique : <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>
-      <br />
-      Téléphone : <Val value={LEGAL.telephone} label="téléphone" />
+      {!isTodo(LEGAL.telephone) && (
+        <>
+          <br />
+          Téléphone : {LEGAL.telephone}
+        </>
+      )}
     </p>
   );
 }
@@ -150,10 +168,11 @@ export function MentionsLegales() {
       <h2>Éditeur du site</h2>
       <p>Le présent site est édité par :</p>
       <IdentityBlock />
-      <p>
-        <strong>Directeur de la publication :</strong>{" "}
-        <Val value={LEGAL.directeurPublication} label="directeur de la publication" />
-      </p>
+      {!isTodo(LEGAL.directeurPublication) && (
+        <p>
+          <strong>Directeur de la publication :</strong> {LEGAL.directeurPublication}
+        </p>
+      )}
 
       <h2>Hébergement</h2>
       <p>Le site est hébergé par :</p>
@@ -216,7 +235,7 @@ export function Cgv() {
         <strong>
           <Val value={LEGAL.denominationLegale} label="l'éditeur" />
         </strong>
-        , {LEGAL.statut}, immatriculé sous le numéro SIREN <Val value={LEGAL.siren} label="SIREN" />, dont le
+        , {LEGAL.statut}, {!isTodo(LEGAL.siren) && <>immatriculé sous le numéro SIREN {LEGAL.siren}, </>}dont le
         siège est situé <Val value={LEGAL.adresse} label="adresse" />, ci-après « le Prestataire » ;
       </p>
       <p>et toute personne physique ou morale procédant à une commande, ci-après « le Client ».</p>
@@ -477,7 +496,8 @@ export function Confidentialite() {
         <strong>
           <Val value={LEGAL.denominationLegale} label="l'éditeur" />
         </strong>
-        , <Val value={LEGAL.adresse} label="adresse" />, SIREN <Val value={LEGAL.siren} label="SIREN" />
+        , <Val value={LEGAL.adresse} label="adresse" />
+        {!isTodo(LEGAL.siren) && <>, SIREN {LEGAL.siren}</>}
         <br />
         Contact : <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>
       </p>

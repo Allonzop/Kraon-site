@@ -10,6 +10,7 @@ import Process from "@/components/process";
 import About from "@/components/about";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
+import OfferBanner from "@/components/offer-banner";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Home() {
@@ -42,6 +43,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <OfferBanner />
     </div>
   );
 }

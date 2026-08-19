@@ -150,6 +150,68 @@ function useTracking(): Record<string, string> {
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/* ------------------------------------------------------------------ *
+ * SEO : la landing n'étant liée nulle part depuis le site principal,
+ * on soigne son indexation (title, description, canonical, Open Graph).
+ * Les URLs sont dérivées de l'origine réelle servie, donc toujours
+ * correctes quel que soit le domaine (ou l'URL Netlify).
+ * ------------------------------------------------------------------ */
+function metaEl(key: "name" | "property", value: string): HTMLMetaElement {
+  const el = document.createElement("meta");
+  el.setAttribute(key, value);
+  return el;
+}
+
+function applyOfferSeo(): () => void {
+  const origin = window.location.origin;
+  const url = `${origin}/offre`;
+  const title = `Votre site professionnel en ${OFFER.deliveryDays} jours — ${OFFER.price}€ | KRAON`;
+  const description = `Votre site vitrine professionnel livré en ${OFFER.deliveryDays} jours, à partir de ${OFFER.price}€. Design sur-mesure, optimisé mobile, maquette gratuite. Offre de lancement réservée aux ${OFFER.spots} premiers clients.`;
+
+  const prevTitle = document.title;
+  document.title = title;
+
+  const ops: { sel: string; attr: string; value: string; make?: () => HTMLElement }[] = [
+    { sel: 'meta[name="description"]', attr: "content", value: description, make: () => metaEl("name", "description") },
+    { sel: 'meta[property="og:title"]', attr: "content", value: title, make: () => metaEl("property", "og:title") },
+    { sel: 'meta[property="og:description"]', attr: "content", value: description, make: () => metaEl("property", "og:description") },
+    { sel: 'meta[property="og:url"]', attr: "content", value: url, make: () => metaEl("property", "og:url") },
+    { sel: 'meta[name="twitter:title"]', attr: "content", value: title, make: () => metaEl("name", "twitter:title") },
+    { sel: 'meta[name="twitter:description"]', attr: "content", value: description, make: () => metaEl("name", "twitter:description") },
+    {
+      sel: 'link[rel="canonical"]',
+      attr: "href",
+      value: url,
+      make: () => {
+        const l = document.createElement("link");
+        l.setAttribute("rel", "canonical");
+        return l;
+      },
+    },
+  ];
+
+  const restores = ops.map(({ sel, attr, value, make }) => {
+    let el = document.head.querySelector(sel) as HTMLElement | null;
+    const created = !el;
+    if (!el && make) {
+      el = make();
+      document.head.appendChild(el);
+    }
+    const prev = el ? el.getAttribute(attr) : null;
+    el?.setAttribute(attr, value);
+    return { el, attr, prev, created };
+  });
+
+  return () => {
+    document.title = prevTitle;
+    for (const r of restores) {
+      if (!r.el) continue;
+      if (r.created) r.el.remove();
+      else if (r.prev !== null) r.el.setAttribute(r.attr, r.prev);
+    }
+  };
+}
+
 /** Enveloppe d'apparition au scroll (IntersectionObserver via framer-motion). */
 function Reveal({
   children,
@@ -757,13 +819,7 @@ export default function Offre() {
   const tracking = useTracking();
   const trackedView = useRef(false);
 
-  useEffect(() => {
-    const prev = document.title;
-    document.title = `Votre site pro en ${OFFER.deliveryDays} jours — ${OFFER.price}€ | KRAON`;
-    return () => {
-      document.title = prev;
-    };
-  }, []);
+  useEffect(() => applyOfferSeo(), []);
 
   useEffect(() => {
     if (trackedView.current) return;

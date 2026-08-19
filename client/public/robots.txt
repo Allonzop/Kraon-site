@@ -1,0 +1,7 @@
+# KRAON — robots.txt
+# Toutes les pages, y compris la landing /offre, sont indexables.
+User-agent: *
+Allow: /
+
+# Plan du site (référencement de /offre sans lien interne depuis le site principal) :
+Sitemap: https://REMPLACER-PAR-VOTRE-DOMAINE/sitemap.xml

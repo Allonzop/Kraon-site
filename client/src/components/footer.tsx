@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Tag } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "wouter";
 import { useLanguage } from "@/lib/i18n";
 
@@ -80,15 +80,9 @@ export default function Footer() {
                   <Sparkles className="h-3.5 w-3.5" /> Audit gratuit
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/offre"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
-                  data-testid="footer-nav-offre"
-                >
-                  <Tag className="h-3.5 w-3.5" /> Offre de lancement
-                </Link>
-              </li>
+              {/* Pas de lien vers /offre ici : la landing de lancement reste
+                  autonome (accès one-way). Le seul point d'entrée depuis le
+                  site principal est la notification OfferBanner sur l'accueil. */}
             </ul>
           </div>
 

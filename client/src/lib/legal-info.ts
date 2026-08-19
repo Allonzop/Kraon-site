@@ -20,16 +20,16 @@ export const TODO = "à compléter" as const;
 export const LEGAL = {
   // ------- Identité de l'éditeur (this site) -------
   enseigne: "KRAON",
-  denominationLegale: TODO, // Nom + prénom (entreprise individuelle) ou raison sociale
+  denominationLegale: "KRAON",
   statut: "Micro-entreprise (entrepreneur individuel)", // à confirmer
   capital: "", // Vide pour une entreprise individuelle
-  siren: TODO, // 9 chiffres
-  siret: TODO, // 14 chiffres
+  siren: "", // 9 chiffres — à ajouter dès l'immatriculation (obligatoire sur les mentions légales)
+  siret: "", // 14 chiffres — à ajouter dès l'immatriculation
   rcs: "", // Ex. « Paris » si société commerciale ; vide sinon
-  adresse: TODO, // Adresse complète du siège
+  adresse: "79 rue Émile Zola, 08000 Charleville-Mézières", // code postal / ville à confirmer
   email: "allonzopensa@gmail.com",
-  telephone: TODO,
-  directeurPublication: TODO, // En général, le nom du dirigeant
+  telephone: "", // à ajouter (obligatoire pour un vendeur en ligne — LCEN)
+  directeurPublication: "", // Masqué tant que vide
   tvaMention: "TVA non applicable, article 293 B du Code général des impôts",
 
   // ------- Hébergeur de CE site (déployé sur Netlify) -------
@@ -40,7 +40,7 @@ export const LEGAL = {
   },
 
   // ------- Juridiction (B2B) -------
-  tribunalVille: TODO, // Ville du tribunal de commerce compétent (siège du Prestataire)
+  tribunalVille: "Charleville-Mézières", // Tribunal compétent (siège du Prestataire)
 
   // ------- Dates & versions -------
   lastUpdated: "18 août 2026",
@@ -74,18 +74,18 @@ export function isTodo(value: string): boolean {
   return value === TODO || value.trim() === "";
 }
 
-/** Libellés des champs requis pour la publication (bandeau d'alerte). */
+/**
+ * Champs légalement attendus mais volontairement laissés vides pour l'instant
+ * (à ajouter dès l'immatriculation). Sert uniquement à un rappel affiché en
+ * développement — jamais en production (voir legal.tsx).
+ */
 export const REQUIRED_FIELDS: { key: keyof LegalConfig; label: string }[] = [
-  { key: "denominationLegale", label: "Dénomination / nom de l'éditeur" },
   { key: "siren", label: "SIREN" },
   { key: "siret", label: "SIRET" },
-  { key: "adresse", label: "Adresse du siège" },
   { key: "telephone", label: "Téléphone" },
-  { key: "directeurPublication", label: "Directeur de la publication" },
-  { key: "tribunalVille", label: "Ville du tribunal compétent" },
 ];
 
-/** Liste des champs requis encore vides. */
+/** Liste des champs légaux encore vides (rappel en dev). */
 export function missingLegalFields(): string[] {
   return REQUIRED_FIELDS.filter(({ key }) => isTodo(LEGAL[key] as string)).map((f) => f.label);
 }
