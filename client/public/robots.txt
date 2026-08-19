@@ -1,7 +1,6 @@
 # KRAON — robots.txt
 # Toutes les pages, y compris la landing /offre, sont indexables.
+# En production, ce fichier est régénéré au build avec la ligne « Sitemap »
+# pointant vers l'URL réelle du site (voir scripts/gen-seo.mjs + netlify.toml).
 User-agent: *
 Allow: /
-
-# Plan du site (référencement de /offre sans lien interne depuis le site principal) :
-Sitemap: https://REMPLACER-PAR-VOTRE-DOMAINE/sitemap.xml

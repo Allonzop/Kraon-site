@@ -3,7 +3,9 @@
 # Netlify Forms (formulaires "contact" et "audit" déclarés dans client/index.html).
 
 [build]
-  command = "npx vite build"
+  # Build du front, puis génération de sitemap.xml + robots.txt avec l'URL
+  # réelle du site (variable Netlify `URL`) — voir scripts/gen-seo.mjs.
+  command = "npx vite build && node scripts/gen-seo.mjs"
   publish = "dist/public"
 
 [build.environment]
