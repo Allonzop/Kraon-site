@@ -109,6 +109,16 @@ const OFFER = {
   ],
 };
 
+/**
+ * Parcours de commande / paiement (Stripe).
+ *
+ * Désactivé pour l'instant : Stripe n'est pas encore branché. Tant que ce
+ * drapeau vaut `false`, la page n'affiche que la conversion « maquette
+ * gratuite » ; la colonne de commande, les CTA « Commander » et l'option de
+ * paiement sont masqués. Repassez-le à `true` pour tout réactiver d'un coup.
+ */
+const SHOW_PAYMENT = false;
+
 /* ------------------------------------------------------------------ *
  * Instrumentation légère : pousse un événement dans window.dataLayer.
  * S'il n'y a aucun outil d'analytics branché, l'événement s'accumule
@@ -285,14 +295,25 @@ function OfferNav() {
           <span className="hidden items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent sm:inline-flex">
             <Sparkles className="h-3.5 w-3.5" /> 20 premiers clients
           </span>
-          <a
-            href="#commande"
-            onClick={() => track("cta_click", { location: "nav", target: "commande" })}
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-3.5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:glow-blue sm:px-4"
-            data-testid="offer-nav-order"
-          >
-            Commander — {OFFER.price}€
-          </a>
+          {SHOW_PAYMENT ? (
+            <a
+              href="#commande"
+              onClick={() => track("cta_click", { location: "nav", target: "commande" })}
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-3.5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:glow-blue sm:px-4"
+              data-testid="offer-nav-order"
+            >
+              Commander — {OFFER.price}€
+            </a>
+          ) : (
+            <a
+              href="#maquette"
+              onClick={() => track("cta_click", { location: "nav", target: "maquette" })}
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-3.5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:glow-blue sm:px-4"
+              data-testid="offer-nav-maquette"
+            >
+              Ma maquette gratuite
+            </a>
+          )}
         </div>
       </div>
     </motion.header>
@@ -898,16 +919,18 @@ export default function Offre() {
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </a>
                 </Magnetic>
-                <Magnetic>
-                  <a
-                    href="#commande"
-                    onClick={() => track("cta_click", { location: "hero", target: "commande" })}
-                    className="glass inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border px-7 py-3.5 text-base font-semibold transition-all hover:border-primary sm:w-auto"
-                    data-testid="hero-cta-commande"
-                  >
-                    Commander maintenant — {OFFER.price}€
-                  </a>
-                </Magnetic>
+                {SHOW_PAYMENT && (
+                  <Magnetic>
+                    <a
+                      href="#commande"
+                      onClick={() => track("cta_click", { location: "hero", target: "commande" })}
+                      className="glass inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border px-7 py-3.5 text-base font-semibold transition-all hover:border-primary sm:w-auto"
+                      data-testid="hero-cta-commande"
+                    >
+                      Commander maintenant — {OFFER.price}€
+                    </a>
+                  </Magnetic>
+                )}
               </motion.div>
 
               <motion.div
@@ -1076,12 +1099,18 @@ export default function Offre() {
                   </div>
                   <Magnetic>
                     <a
-                      href="#commande"
-                      onClick={() => track("cta_click", { location: "pricing", target: "commande" })}
+                      href={SHOW_PAYMENT ? "#commande" : "#maquette"}
+                      onClick={() =>
+                        track("cta_click", {
+                          location: "pricing",
+                          target: SHOW_PAYMENT ? "commande" : "maquette",
+                        })
+                      }
                       className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-semibold text-primary-foreground transition-all hover:glow-blue"
                       data-testid="pricing-cta"
                     >
-                      J'en profite <ArrowRight className="h-5 w-5" />
+                      {SHOW_PAYMENT ? "J'en profite" : "Demander ma maquette gratuite"}{" "}
+                      <ArrowRight className="h-5 w-5" />
                     </a>
                   </Magnetic>
                 </div>
@@ -1123,16 +1152,29 @@ export default function Offre() {
         <section className="px-4 py-20 sm:px-6">
           <div className="mx-auto max-w-6xl">
             <Reveal className="mx-auto mb-12 max-w-2xl text-center">
-              <h2 className="text-2xl font-bold sm:text-3xl" style={{ textWrap: "balance" } as React.CSSProperties}>
-                Deux façons de <span className="gradient-text">démarrer</span>
-              </h2>
-              <p className="mt-3 text-muted-foreground">
-                Vous préférez voir avant de vous décider ? Recevez une maquette gratuite. Déjà convaincu ?
-                Lancez votre site tout de suite.
-              </p>
+              {SHOW_PAYMENT ? (
+                <>
+                  <h2 className="text-2xl font-bold sm:text-3xl" style={{ textWrap: "balance" } as React.CSSProperties}>
+                    Deux façons de <span className="gradient-text">démarrer</span>
+                  </h2>
+                  <p className="mt-3 text-muted-foreground">
+                    Vous préférez voir avant de vous décider ? Recevez une maquette gratuite. Déjà convaincu ?
+                    Lancez votre site tout de suite.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-2xl font-bold sm:text-3xl" style={{ textWrap: "balance" } as React.CSSProperties}>
+                    Recevez votre <span className="gradient-text">maquette gratuite</span>
+                  </h2>
+                  <p className="mt-3 text-muted-foreground">
+                    On vous montre à quoi ressemblerait votre site, sans engagement. Vous décidez ensuite.
+                  </p>
+                </>
+              )}
             </Reveal>
 
-            <div className="grid gap-6 lg:grid-cols-2">
+            <div className={`grid gap-6 ${SHOW_PAYMENT ? "lg:grid-cols-2" : "mx-auto max-w-xl"}`}>
               <Reveal>
                 <div id="maquette" className="glass flex h-full flex-col rounded-3xl p-6 scroll-mt-24 sm:p-8">
                   <div className="mb-5">
@@ -1146,23 +1188,25 @@ export default function Offre() {
                 </div>
               </Reveal>
 
-              <Reveal delay={0.1}>
-                <div
-                  id="commande"
-                  className="relative flex h-full flex-col rounded-3xl border border-primary/30 bg-gradient-to-b from-primary/[0.08] to-transparent p-6 scroll-mt-24 sm:p-8"
-                >
-                  <div className="mb-5">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-                      <ShieldCheck className="h-3.5 w-3.5" /> Le plus rapide
-                    </span>
-                    <h3 className="mt-3 text-xl font-bold">Commander mon site — {OFFER.price}€</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      On démarre dès réception de vos informations. Livraison en {OFFER.deliveryDays} jours.
-                    </p>
+              {SHOW_PAYMENT && (
+                <Reveal delay={0.1}>
+                  <div
+                    id="commande"
+                    className="relative flex h-full flex-col rounded-3xl border border-primary/30 bg-gradient-to-b from-primary/[0.08] to-transparent p-6 scroll-mt-24 sm:p-8"
+                  >
+                    <div className="mb-5">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+                        <ShieldCheck className="h-3.5 w-3.5" /> Le plus rapide
+                      </span>
+                      <h3 className="mt-3 text-xl font-bold">Commander mon site — {OFFER.price}€</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        On démarre dès réception de vos informations. Livraison en {OFFER.deliveryDays} jours.
+                      </p>
+                    </div>
+                    <CommandeForm tracking={tracking} />
                   </div>
-                  <CommandeForm tracking={tracking} />
-                </div>
-              </Reveal>
+                </Reveal>
+              )}
             </div>
           </div>
         </section>
