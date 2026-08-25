@@ -30,7 +30,6 @@ export default function Header() {
     { name: t("nav.services"), id: "services" },
     { name: t("nav.work"), id: "work" },
     { name: t("nav.process"), id: "process" },
-    { name: t("nav.about"), id: "about" },
     { name: t("nav.contact"), id: "contact" },
   ];
 

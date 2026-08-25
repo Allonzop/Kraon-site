@@ -22,8 +22,8 @@ const translations = {
     
     // Hero
     "hero.badge": "Available for new projects",
-    "hero.headline": "Premium Digital Marketing for Ambitious SMEs",
-    "hero.subtext": "Strategy, performance, and design — tailored to your growth.",
+    "hero.headline": "Professional websites for skilled artisans",
+    "hero.subtext": "A polished, fast website that showcases your craft and brings in new clients.",
     "hero.cta.proposal": "Get a Proposal",
     "hero.cta.work": "See Work",
     
@@ -147,8 +147,8 @@ const translations = {
     
     // Hero
     "hero.badge": "Disponible pour de nouveaux projets",
-    "hero.headline": "Marketing digital premium pour les PME ambitieuses",
-    "hero.subtext": "Stratégie, performance et design — pensés pour votre croissance.",
+    "hero.headline": "Des sites internet sur-mesure pour les artisans",
+    "hero.subtext": "Une vitrine professionnelle, rapide et soignée, qui met votre savoir-faire en valeur et vous apporte des clients.",
     "hero.cta.proposal": "Demander une proposition",
     "hero.cta.work": "Voir nos réalisations",
     

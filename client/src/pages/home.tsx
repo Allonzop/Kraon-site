@@ -7,7 +7,6 @@ import Services from "@/components/services";
 import Work from "@/components/work";
 import LeadMagnetCTA from "@/components/lead-magnet-cta";
 import Process from "@/components/process";
-import About from "@/components/about";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import OfferBanner from "@/components/offer-banner";
@@ -39,7 +38,6 @@ export default function Home() {
         <Work />
         <LeadMagnetCTA />
         <Process />
-        <About />
         <Contact />
       </main>
       <Footer />
