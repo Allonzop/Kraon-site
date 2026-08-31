@@ -403,6 +403,8 @@ const allProjects: Project[] = [
     url: "allonzop.github.io/Jeux3DSmatph-e",
     gradient: "from-[#7a3de9]/30 to-[#3d9be9]/20",
     icon: Gamepad2,
+    cardImage: "/assets/game-card.jpg",
+    heroImage: "/assets/game-card.jpg",
     heroTagline: { fr: "3D · Temps réel · Jouable", en: "3D · Real-time · Playable" },
     description: {
       fr: "Tower Defense 3D est un projet de recherche et développement mené en parallèle : un jeu de tower defense dans un univers cartoon, développé en 3D temps réel et jouable directement dans le navigateur, y compris sur mobile. Au-delà des sites vitrines, il démontre la maîtrise de la 3D temps réel, de la logique de jeu et de l'optimisation des performances — la preuve que la technique va bien plus loin qu'une simple page web. Le projet est encore en cours de développement.",
@@ -421,17 +423,39 @@ const allProjects: Project[] = [
     ],
     showcases: [
       {
-        media: { kind: "placeholder", aspect: "video" },
+        media: {
+          kind: "image",
+          src: "/assets/game-shot-1.jpg",
+          alt: { fr: "Gameplay de Tower Defense 3D", en: "Tower Defense 3D gameplay" },
+        },
         title: { fr: "Une démo jouable", en: "A playable demo" },
         desc: {
-          fr: "Le jeu tourne directement dans le navigateur : défense de tours, vagues d'ennemis et rendu 3D temps réel. Une manière concrète de montrer un niveau technique rarement associé à la création de sites.",
-          en: "The game runs straight in the browser: tower defense, enemy waves and real-time 3D rendering. A concrete way to show a technical level rarely associated with website creation.",
+          fr: "Le jeu tourne directement dans le navigateur : défense d'un noyau sur une planète, tours à construire, vagues d'ennemis et rendu 3D temps réel. Une manière concrète de montrer un niveau technique rarement associé à la création de sites.",
+          en: "The game runs straight in the browser: defend a core on a planet, build towers, face enemy waves — all in real-time 3D. A concrete way to show a technical level rarely associated with website creation.",
         },
         highlights: [
           { fr: "Rendu 3D temps réel", en: "Real-time 3D rendering" },
           { fr: "Boucle de jeu complète", en: "Complete game loop" },
           { fr: "Contrôles tactiles", en: "Touch controls" },
         ],
+      },
+      {
+        media: {
+          kind: "image",
+          src: "/assets/game-shot-2.jpg",
+          alt: { fr: "Fin de vague dans Tower Defense 3D", en: "Wave cleared in Tower Defense 3D" },
+        },
+        title: { fr: "Vagues et progression", en: "Waves and progression" },
+        desc: {
+          fr: "Économie de ressources (boulons), montée en puissance des tours et vagues successives : une vraie boucle de jeu, pensée et équilibrée, jouable aussi bien sur mobile que sur ordinateur.",
+          en: "Resource economy (bolts), tower upgrades and successive waves: a real, balanced game loop, playable on both mobile and desktop.",
+        },
+        highlights: [
+          { fr: "Économie & montée en puissance", en: "Economy & upgrades" },
+          { fr: "Difficulté progressive", en: "Progressive difficulty" },
+          { fr: "Mobile et ordinateur", en: "Mobile and desktop" },
+        ],
+        reverse: true,
       },
     ],
     challenges: [

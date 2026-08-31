@@ -33,6 +33,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Les ancres de section ne passent plus sous l'en-tête fixe au scroll. */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--background);
@@ -52,9 +57,10 @@ body {
 
 @layer utilities {
   .glass {
-    background: rgba(255, 255, 255, 0.05);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
     backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 30px rgba(0, 0, 0, 0.18);
   }
 
   .glow-blue {
@@ -92,9 +98,9 @@ body {
 
   .card-hover:hover {
     transform: translateY(-8px);
-    box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.4),
-      0 0 30px rgba(61, 155, 233, 0.2);
+    box-shadow:
+      0 24px 50px rgba(0, 0, 0, 0.45),
+      0 0 36px rgba(61, 155, 233, 0.28);
   }
 
   .timeline-line {
