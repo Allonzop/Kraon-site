@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Globe } from "lucide-react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n";
 import Magnetic from "@/components/effects/magnetic";
@@ -81,7 +82,15 @@ export default function Header() {
                   {item.name}
                 </motion.button>
               ))}
-              
+
+              <Link
+                href="/a-propos"
+                className="text-muted-foreground hover:text-primary transition-colors duration-200 px-2 py-1 rounded-md hover:bg-primary/10 text-sm xl:text-base"
+                data-testid="nav-a-propos"
+              >
+                {language === "en" ? "About" : "À propos"}
+              </Link>
+
               {/* Language Toggle */}
               <motion.button
                 onClick={() => setLanguage(language === "en" ? "fr" : "en")}
@@ -150,7 +159,16 @@ export default function Header() {
                   {item.name}
                 </motion.button>
               ))}
-              
+
+              <Link
+                href="/a-propos"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block w-full text-left px-4 py-3 text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-primary/10"
+                data-testid="nav-mobile-a-propos"
+              >
+                {language === "en" ? "About" : "À propos"}
+              </Link>
+
               {/* Mobile Language Toggle */}
               <motion.button
                 onClick={() => setLanguage(language === "en" ? "fr" : "en")}

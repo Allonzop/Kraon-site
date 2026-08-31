@@ -119,6 +119,17 @@ const OFFER = {
  */
 const SHOW_PAYMENT = false;
 
+/**
+ * Ordre des réalisations mises en avant sur la landing : les sites vitrines
+ * d'abord (les plus pertinents pour un artisan), puis DataViz Pro (démo live),
+ * et la maquette Wear the Vision en dernier — gardée, mais volontairement peu
+ * mise en avant.
+ */
+const PROOF_ORDER = [5, 6, 2, 1];
+const proofProjects = PROOF_ORDER.map((id) => projects.find((p) => p.id === id)).filter(
+  (p): p is (typeof projects)[number] => Boolean(p),
+);
+
 /* ------------------------------------------------------------------ *
  * Instrumentation légère : pousse un événement dans window.dataLayer.
  * S'il n'y a aucun outil d'analytics branché, l'événement s'accumule
@@ -990,7 +1001,7 @@ export default function Offre() {
               </p>
             </Reveal>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.map((p, i) => (
+              {proofProjects.map((p, i) => (
                 <ProofCard key={p.id} p={p} delay={(i % 3) * 0.08} />
               ))}
             </div>

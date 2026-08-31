@@ -72,6 +72,15 @@ export default function Footer() {
               ))}
               <li>
                 <Link
+                  href="/a-propos"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  data-testid="footer-nav-a-propos"
+                >
+                  À propos
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/audit-gratuit"
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
                   data-testid="footer-nav-audit"

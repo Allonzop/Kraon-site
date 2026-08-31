@@ -9,6 +9,7 @@ import Home from "@/pages/home";
 import ProjectDetail from "@/pages/project-detail";
 import AuditGratuit from "@/pages/audit-gratuit";
 import Offre from "@/pages/offre";
+import AboutMe from "@/pages/about-me";
 import { MentionsLegales, Cgv, Confidentialite } from "@/pages/legal";
 import NotFound from "@/pages/not-found";
 
@@ -26,6 +27,7 @@ function App() {
               <Route path="/" component={Home} />
               <Route path="/audit-gratuit" component={AuditGratuit} />
               <Route path="/offre" component={Offre} />
+              <Route path="/a-propos" component={AboutMe} />
               <Route path="/mentions-legales" component={MentionsLegales} />
               <Route path="/cgv" component={Cgv} />
               <Route path="/confidentialite" component={Confidentialite} />
