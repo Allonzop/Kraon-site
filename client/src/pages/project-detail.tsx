@@ -63,10 +63,15 @@ export default function ProjectDetail() {
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               {project.url && (
                 <>
-                  <span className="flex items-center gap-2">
+                  <a
+                    href={`https://${project.url}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 transition-colors hover:text-primary"
+                  >
                     <Globe className="w-4 h-4" />
                     {project.url}
-                  </span>
+                  </a>
                   <span>•</span>
                 </>
               )}

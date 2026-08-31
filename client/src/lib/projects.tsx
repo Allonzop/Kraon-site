@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { ShoppingBag, BarChart3, Building2, UtensilsCrossed } from "lucide-react";
+import { ShoppingBag, BarChart3, Building2, UtensilsCrossed, Gamepad2 } from "lucide-react";
 import type { Language } from "@/lib/i18n";
 
 import visionLogo from "@assets/Logo Tech Blanc_1758895568511.png";
@@ -78,14 +78,17 @@ export interface Project {
   testimonial?: Testimonial;
   /** Marks placeholder content that should be replaced with real case studies. */
   isPlaceholder?: boolean;
+  /** Masqué du site (conservé en données). Retiré du portfolio et de la landing. */
+  hidden?: boolean;
 }
 
 /**
- * Central source of truth for portfolio projects.
- * Project 1 (Wear the Vision) is real; projects 2–4 are placeholder case
- * studies with realistic copy — swap in real content, metrics and media later.
+ * Source de vérité du portfolio. `allProjects` contient TOUT (données
+ * conservées, y compris les projets masqués) ; `projects` — exporté et utilisé
+ * partout — exclut les entrées `hidden`. Pour ré-afficher un projet masqué,
+ * repassez simplement son `hidden` à false.
  */
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     id: 5,
     title: "Pepiliya",
@@ -231,6 +234,9 @@ export const projects: Project[] = [
   },
   {
     id: 1,
+    // Retiré du site pour l'instant (démo vidéo perdue). Donnée conservée :
+    // repasser `hidden` à false pour le ré-afficher quand la démo est retrouvée.
+    hidden: true,
     title: "Wear the Vision",
     subtitle: { fr: "Concept de boutique — casquettes premium", en: "Store concept — premium caps" },
     category: { fr: "Maquette e-commerce", en: "E-commerce mockup" },
@@ -384,11 +390,69 @@ export const projects: Project[] = [
       { fr: "Animations GPU et rendu optimisé", en: "GPU animations and optimized rendering" },
     ],
   },
+  {
+    id: 7,
+    title: "Tower Defense 3D",
+    subtitle: { fr: "Jeu mobile 3D — tower defense", en: "3D mobile game — tower defense" },
+    category: { fr: "Jeu vidéo 3D · Démo jouable", en: "3D game · Playable demo" },
+    result: {
+      fr: "Un jeu 3D jouable dans le navigateur — la preuve d'un vrai savoir-faire technique",
+      en: "A browser-playable 3D game — proof of real technical range",
+    },
+    year: "2025",
+    url: "allonzop.github.io/Jeux3DSmatph-e",
+    gradient: "from-[#7a3de9]/30 to-[#3d9be9]/20",
+    icon: Gamepad2,
+    heroTagline: { fr: "3D · Temps réel · Jouable", en: "3D · Real-time · Playable" },
+    description: {
+      fr: "Tower Defense 3D est un projet de recherche et développement mené en parallèle : un jeu de tower defense dans un univers cartoon, développé en 3D temps réel et jouable directement dans le navigateur, y compris sur mobile. Au-delà des sites vitrines, il démontre la maîtrise de la 3D temps réel, de la logique de jeu et de l'optimisation des performances — la preuve que la technique va bien plus loin qu'une simple page web. Le projet est encore en cours de développement.",
+      en: "Tower Defense 3D is an ongoing R&D project: a tower-defense game set in a cartoon universe, built in real-time 3D and playable straight from the browser, including on mobile. Beyond showcase websites, it demonstrates a command of real-time 3D, game logic and performance optimization — proof that the craft goes well beyond a simple web page. The project is still in active development.",
+    },
+    overviewHighlights: [
+      { fr: "3D temps réel, jouable dans le navigateur", en: "Real-time 3D, playable in the browser" },
+      { fr: "Univers cartoon original", en: "Original cartoon universe" },
+      { fr: "Pensé et optimisé pour le mobile", en: "Designed and optimized for mobile" },
+    ],
+    metrics: [
+      { value: "3D", label: { fr: "Temps réel", en: "Real-time" } },
+      { value: "Web", label: { fr: "Jouable navigateur", en: "Browser-playable" } },
+      { value: "Mobile", label: { fr: "Pensé mobile", en: "Mobile-first" } },
+      { value: "R&D", label: { fr: "Projet en développement", en: "Project in development" } },
+    ],
+    showcases: [
+      {
+        media: { kind: "placeholder", aspect: "video" },
+        title: { fr: "Une démo jouable", en: "A playable demo" },
+        desc: {
+          fr: "Le jeu tourne directement dans le navigateur : défense de tours, vagues d'ennemis et rendu 3D temps réel. Une manière concrète de montrer un niveau technique rarement associé à la création de sites.",
+          en: "The game runs straight in the browser: tower defense, enemy waves and real-time 3D rendering. A concrete way to show a technical level rarely associated with website creation.",
+        },
+        highlights: [
+          { fr: "Rendu 3D temps réel", en: "Real-time 3D rendering" },
+          { fr: "Boucle de jeu complète", en: "Complete game loop" },
+          { fr: "Contrôles tactiles", en: "Touch controls" },
+        ],
+      },
+    ],
+    challenges: [
+      { fr: "Faire tourner de la 3D fluide sur mobile", en: "Running smooth 3D on mobile" },
+      { fr: "Concevoir une boucle de jeu engageante", en: "Designing an engaging game loop" },
+      { fr: "Optimiser les performances et le chargement", en: "Optimizing performance and loading" },
+    ],
+    solutions: [
+      { fr: "Rendu 3D optimisé pour le web et le mobile", en: "3D rendering optimized for web and mobile" },
+      { fr: "Univers cartoon lisible et léger", en: "A readable, lightweight cartoon universe" },
+      { fr: "Itérations rapides en développement continu", en: "Fast iterations in continuous development" },
+    ],
+  },
 ];
+
+/** Projets visibles sur le site (exclut les entrées `hidden`). */
+export const projects: Project[] = allProjects.filter((p) => !p.hidden);
 
 export function getProject(id: number | string | undefined): Project | undefined {
   const numericId = typeof id === "string" ? parseInt(id, 10) : id;
-  return projects.find((p) => p.id === numericId);
+  return allProjects.find((p) => p.id === numericId);
 }
 
 /** Resolve a Localized value for the active language. */

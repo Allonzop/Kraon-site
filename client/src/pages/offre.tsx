@@ -125,7 +125,7 @@ const SHOW_PAYMENT = false;
  * et la maquette Wear the Vision en dernier — gardée, mais volontairement peu
  * mise en avant.
  */
-const PROOF_ORDER = [5, 6, 2, 1];
+const PROOF_ORDER = [5, 6, 2];
 const proofProjects = PROOF_ORDER.map((id) => projects.find((p) => p.id === id)).filter(
   (p): p is (typeof projects)[number] => Boolean(p),
 );
