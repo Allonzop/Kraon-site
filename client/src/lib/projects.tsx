@@ -423,6 +423,19 @@ const allProjects: Project[] = [
     ],
     showcases: [
       {
+        media: { kind: "video", src: "/assets/game-demo.mp4", poster: "/assets/game-demo-poster.jpg" },
+        title: { fr: "Le jeu en action", en: "The game in action" },
+        desc: {
+          fr: "Quelques secondes de gameplay réel : placement des tours, vagues d'ennemis et rendu 3D temps réel, directement dans le navigateur.",
+          en: "A few seconds of real gameplay: tower placement, enemy waves and real-time 3D rendering, straight in the browser.",
+        },
+        highlights: [
+          { fr: "Capture de gameplay réelle", en: "Real gameplay capture" },
+          { fr: "60 fps à l'origine", en: "Originally 60 fps" },
+          { fr: "Jouable sur mobile", en: "Playable on mobile" },
+        ],
+      },
+      {
         media: {
           kind: "image",
           src: "/assets/game-shot-1.jpg",
@@ -438,6 +451,7 @@ const allProjects: Project[] = [
           { fr: "Boucle de jeu complète", en: "Complete game loop" },
           { fr: "Contrôles tactiles", en: "Touch controls" },
         ],
+        reverse: true,
       },
       {
         media: {
@@ -455,7 +469,6 @@ const allProjects: Project[] = [
           { fr: "Difficulté progressive", en: "Progressive difficulty" },
           { fr: "Mobile et ordinateur", en: "Mobile and desktop" },
         ],
-        reverse: true,
       },
     ],
     challenges: [

@@ -340,7 +340,7 @@ function ShowcaseMedia({
       className={`relative ${order}`}
     >
       {media.kind === "video" && (
-        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 border border-white/10">
+        <div className="relative flex justify-center rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 border border-white/10">
           <video
             src={media.src}
             poster={media.poster}
@@ -349,7 +349,7 @@ function ShowcaseMedia({
             muted
             playsInline
             preload="metadata"
-            className="w-full h-auto object-contain"
+            className="mx-auto max-h-[600px] w-auto max-w-full object-contain"
           >
             {language === "fr"
               ? "Votre navigateur ne supporte pas les vidéos HTML5."

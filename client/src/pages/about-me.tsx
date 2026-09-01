@@ -185,7 +185,6 @@ export default function AboutMe() {
             </div>
 
             <motion.div
-              className="order-first lg:order-none"
               initial={reduce ? false : { opacity: 0, y: 24, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
