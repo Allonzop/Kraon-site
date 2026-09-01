@@ -1,16 +1,22 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Footer() {
   const { t } = useLanguage();
+  const [location, setLocation] = useLocation();
 
+  // Défile vers une section de l'accueil, y compris depuis une autre page
+  // (retour à l'accueil puis défilement une fois la section montée).
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    const scrollWhenReady = (tries = 0) => {
+      const element = document.getElementById(sectionId);
+      if (element) element.scrollIntoView({ behavior: "smooth" });
+      else if (tries < 20) window.setTimeout(() => scrollWhenReady(tries + 1), 50);
+    };
+    if (location !== "/") setLocation("/");
+    scrollWhenReady();
   };
 
   const navItems = [
