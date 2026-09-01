@@ -111,8 +111,9 @@ export default function AboutMe() {
             </>
           )}
 
-          <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-            <div>
+          <div className="relative mx-auto grid max-w-6xl gap-x-12 gap-y-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            {/* Bloc A — juste l'accroche : passe AVANT la photo sur mobile */}
+            <div className="lg:col-start-1 lg:row-start-1">
               <motion.span
                 className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent"
                 initial={reduce ? false : { opacity: 0, y: 20 }}
@@ -140,9 +141,22 @@ export default function AboutMe() {
               >
                 {ABOUT.tagline}
               </motion.p>
+            </div>
 
+            {/* Photo — après l'accroche sur mobile ; colonne droite centrée sur desktop */}
+            <motion.div
+              className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center"
+              initial={reduce ? false : { opacity: 0, y: 24, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+            >
+              <Portrait />
+            </motion.div>
+
+            {/* Bloc B — le reste : après la photo sur mobile */}
+            <div className="lg:col-start-1 lg:row-start-2">
               <motion.div
-                className="mt-4 space-y-3 text-muted-foreground"
+                className="space-y-3 text-muted-foreground"
                 initial={reduce ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
@@ -183,14 +197,6 @@ export default function AboutMe() {
                 )}
               </motion.div>
             </div>
-
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 24, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
-            >
-              <Portrait />
-            </motion.div>
           </div>
         </section>
 
