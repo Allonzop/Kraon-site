@@ -99,6 +99,7 @@ const allProjects: Project[] = [
       en: "Premium portfolio site for a leading architect",
     },
     year: "2025",
+    url: "pepiliya.fr",
     gradient: "from-[#c65a3a]/30 to-[#7a6a58]/25",
     icon: Building2,
     logo: pepiliyaLogo,

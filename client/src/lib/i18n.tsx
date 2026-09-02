@@ -42,6 +42,13 @@ const translations = {
     "services.design.desc": "Premium websites that convert visitors into customers",
     "services.analytics.title": "Analytics",
     "services.analytics.desc": "Advanced tracking and insights to optimize every touchpoint",
+    "services.flipHint": "What's in it for you",
+    "services.strategy.value": "You know where to focus — and stop guessing.",
+    "services.ads.value": "Customers who find you today, without waiting for organic SEO.",
+    "services.seo.value": "A steady flow of customers finding you on Google, without paying per click.",
+    "services.content.value": "A presence that builds trust and keeps your brand top of mind.",
+    "services.design.value": "A first impression that makes people want to contact you — on any device.",
+    "services.analytics.value": "You finally see what pays off, and invest where it works.",
     
     // Work
     "work.title": "Featured Work",
@@ -167,6 +174,13 @@ const translations = {
     "services.design.desc": "Des sites web premium qui transforment vos visiteurs en clients",
     "services.analytics.title": "Analytics",
     "services.analytics.desc": "Un suivi avancé et des insights précis pour optimiser chaque étape du parcours client",
+    "services.flipHint": "Ce que ça vous apporte",
+    "services.strategy.value": "Vous savez où concentrer vos efforts — et vous arrêtez de deviner.",
+    "services.ads.value": "Des clients qui vous trouvent dès aujourd'hui, sans attendre le référencement naturel.",
+    "services.seo.value": "Un flux régulier de clients qui vous trouvent sur Google, sans payer chaque clic.",
+    "services.content.value": "Une présence qui inspire confiance et garde votre marque en tête.",
+    "services.design.value": "Une première impression qui donne envie de vous contacter, sur mobile comme sur ordinateur.",
+    "services.analytics.value": "Vous voyez enfin ce qui rapporte, et vous investissez là où ça marche.",
     
     // Work
     "work.title": "Études de Cas",
