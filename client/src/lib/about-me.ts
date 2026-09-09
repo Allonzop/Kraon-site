@@ -11,7 +11,7 @@ export const ABOUT = {
   name: "Allonzo", // Prénom affiché — à confirmer
   role: "Créateur de sites internet pour artisans",
   location: "Charleville-Mézières",
-  photo: "/assets/portrait.jpg",
+  photo: "/media/portrait.jpg",
   headline: "Un interlocuteur unique, du premier message à la livraison",
   tagline:
     "Pas d'agence anonyme, pas de standard : la personne qui vous répond est celle qui conçoit votre site.",

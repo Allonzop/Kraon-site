@@ -44,7 +44,7 @@ export default function Footer() {
               data-testid="footer-logo"
             >
               <img
-                src="/assets/logo.png"
+                src="/media/logo.png"
                 alt="KRAON Logo"
                 className="w-8 h-8 mr-3 object-contain ring-1 ring-white/10 rounded-sm transition-transform group-hover:scale-105"
                 width="32"

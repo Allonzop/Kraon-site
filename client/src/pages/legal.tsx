@@ -50,7 +50,7 @@ function LegalShell({ title, children }: { title: string; children: ReactNode })
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4 sm:h-16 sm:px-6">
           <Link href="/" className="flex items-center gap-2">
             <img
-              src="/assets/logo.png"
+              src="/media/logo.png"
               alt="KRAON"
               width={32}
               height={32}

@@ -65,7 +65,7 @@ export default function Header() {
             data-testid="button-logo"
           >
             <img 
-              src="/assets/logo.png" 
+              src="/media/logo.png" 
               alt="KRAON Logo" 
               className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 mr-2 sm:mr-3 object-contain ring-1 ring-white/10 rounded-sm"
               width="32"

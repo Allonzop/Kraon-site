@@ -402,8 +402,8 @@ const allProjects: Project[] = [
     url: "allonzop.github.io/Jeux3DSmatph-e",
     gradient: "from-[#7a3de9]/30 to-[#3d9be9]/20",
     icon: Gamepad2,
-    cardImage: "/assets/game-card.jpg",
-    heroImage: "/assets/game-card.jpg",
+    cardImage: "/media/game-card.jpg",
+    heroImage: "/media/game-card.jpg",
     heroTagline: { fr: "3D · Temps réel · Jouable", en: "3D · Real-time · Playable" },
     description: {
       fr: "Tower Defense 3D est un projet de recherche et développement mené en parallèle : un jeu de tower defense dans un univers cartoon, développé en 3D temps réel et jouable directement dans le navigateur, y compris sur mobile. Au-delà des sites vitrines, il démontre la maîtrise de la 3D temps réel, de la logique de jeu et de l'optimisation des performances — la preuve que la technique va bien plus loin qu'une simple page web. Le projet est encore en cours de développement.",
@@ -422,7 +422,7 @@ const allProjects: Project[] = [
     ],
     showcases: [
       {
-        media: { kind: "video", src: "/assets/game-demo.mp4", poster: "/assets/game-demo-poster.jpg" },
+        media: { kind: "video", src: "/media/game-demo.mp4", poster: "/media/game-demo-poster.jpg" },
         title: { fr: "Le jeu en action", en: "The game in action" },
         desc: {
           fr: "Quelques secondes de gameplay réel : placement des tours, vagues d'ennemis et rendu 3D temps réel, directement dans le navigateur.",
@@ -437,7 +437,7 @@ const allProjects: Project[] = [
       {
         media: {
           kind: "image",
-          src: "/assets/game-shot-1.jpg",
+          src: "/media/game-shot-1.jpg",
           alt: { fr: "Gameplay de Tower Defense 3D", en: "Tower Defense 3D gameplay" },
         },
         title: { fr: "Une démo jouable", en: "A playable demo" },
@@ -455,7 +455,7 @@ const allProjects: Project[] = [
       {
         media: {
           kind: "image",
-          src: "/assets/game-shot-2.jpg",
+          src: "/media/game-shot-2.jpg",
           alt: { fr: "Fin de vague dans Tower Defense 3D", en: "Wave cleared in Tower Defense 3D" },
         },
         title: { fr: "Vagues et progression", en: "Waves and progression" },

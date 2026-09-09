@@ -33,6 +33,7 @@ const translations = {
     "services.subtitle": "Websites that bring you clients, automations that give you back your time.",
     "services.group.web": "Website creation",
     "services.group.ai": "AI & automation",
+    "tools.label": "Tools we work with",
     "services.flipHint": "What's in it for you",
     "services.web1.title": "Bespoke website",
     "services.web1.desc": "A site built around your business — never a generic template",
@@ -75,22 +76,6 @@ const translations = {
     "process.optimize.timeline": "Ongoing",
     
     // About
-    "about.title": "About KRAON",
-    "about.description": "We're a premium digital agency for ambitious SMEs and brands. We bring together bespoke design, high-performance development and conversion-focused copywriting. We don't just make things look good — we build sites and experiences that turn visitors into customers.",
-    "about.badge1.value": "5+",
-    "about.badge1.label": "Years Experience",
-    "about.badge2.value": "100%",
-    "about.badge2.label": "bespoke, design + dev",
-    "about.badge3.value": "<24h",
-    "about.badge3.label": "Response Time",
-    "about.team1.name": "Sarah Chen",
-    "about.team1.role": "Strategy Director",
-    "about.team2.name": "Marcus Rivera",
-    "about.team2.role": "Performance Lead",
-    "about.team3.name": "Emma Thompson",
-    "about.team3.role": "Creative Director",
-    "about.team4.name": "Alex Kumar", 
-    "about.team4.role": "Analytics Specialist",
     
     // Contact
     "contact.title": "Start Your Growth Journey",
@@ -156,6 +141,7 @@ const translations = {
     "services.subtitle": "Des sites qui vous apportent des clients, des automatisations qui vous rendent du temps.",
     "services.group.web": "Création de sites internet",
     "services.group.ai": "IA & automatisation",
+    "tools.label": "Les outils que nous maîtrisons",
     "services.flipHint": "Ce que ça vous apporte",
     "services.web1.title": "Site sur-mesure",
     "services.web1.desc": "Un site pensé pour votre métier — jamais un template générique",
@@ -198,22 +184,6 @@ const translations = {
     "process.optimize.timeline": "En continu",
     
     // About
-    "about.title": "À propos de KRAON",
-    "about.description": "Nous sommes une agence digitale premium au service des PME et des marques ambitieuses. Nous réunissons design sur-mesure, développement performant et copywriting orienté conversion. On ne se contente pas de faire joli : on construit des sites et des expériences qui transforment les visiteurs en clients.",
-    "about.badge1.value": "5+",
-    "about.badge1.label": "années d'expérience",
-    "about.badge2.value": "100%",
-    "about.badge2.label": "sur-mesure, design + dev",
-    "about.badge3.value": "< 24h",
-    "about.badge3.label": "de temps de réponse",
-    "about.team1.name": "Sarah Chen",
-    "about.team1.role": "Directrice Stratégie",
-    "about.team2.name": "Marcus Rivera",
-    "about.team2.role": "Responsable Performance",
-    "about.team3.name": "Emma Thompson",
-    "about.team3.role": "Directrice Créative",
-    "about.team4.name": "Alex Kumar",
-    "about.team4.role": "Spécialiste Analytics",
     
     // Contact
     "contact.title": "Prêt à Booster Votre Croissance ?",

@@ -17,3 +17,26 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# ---------------------------------------------------------------------------
+# Mise en cache. `/assets/*` ne contient que des fichiers générés par Vite avec
+# une empreinte dans le nom (index-a1b2c3.js) : leur contenu ne change jamais
+# pour une URL donnée, on peut donc les garder un an sans revalidation — les
+# visiteurs qui reviennent ne retéléchargent plus rien.
+# `/media/*` regroupe les médias fixes remplaçables (logo, portrait, vidéo du
+# jeu) : cache court, pour qu'un remplacement soit visible rapidement.
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
