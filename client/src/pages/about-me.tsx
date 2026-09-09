@@ -4,7 +4,8 @@ import { Link } from "wouter";
 import { ArrowRight, Mail, MapPin, MessageCircle, Instagram, Check } from "lucide-react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { ABOUT } from "@/lib/about-me";
+import { useLanguage } from "@/lib/i18n";
+import { ABOUT, type Localized } from "@/lib/about-me";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -25,6 +26,8 @@ function Reveal({ children, delay = 0, className }: { children: ReactNode; delay
 
 /** Portrait compact avec repli automatique si la photo n'a pas été déposée. */
 function Portrait() {
+  const { language } = useLanguage();
+  const L = (v: Localized) => v[language];
   const [failed, setFailed] = useState(false);
   const initial = ABOUT.name.trim().charAt(0).toUpperCase() || "K";
 
@@ -42,7 +45,7 @@ function Portrait() {
         {ABOUT.photo && !failed ? (
           <img
             src={ABOUT.photo}
-            alt={`${ABOUT.name} — ${ABOUT.role}`}
+            alt={`${ABOUT.name} — ${L(ABOUT.role)}`}
             className="aspect-[4/5] w-full object-cover"
             loading="eager"
             decoding="async"
@@ -54,14 +57,15 @@ function Portrait() {
               {initial}
             </div>
             <p className="px-6 text-center text-xs text-muted-foreground">
-              Photo à déposer dans <code>public/assets/portrait.jpg</code>
+              {language === "en" ? "Add your photo at" : "Photo à déposer dans"}{" "}
+              <code>public/media/portrait.jpg</code>
             </p>
           </div>
         )}
       </div>
       <div className="mt-3 text-center">
         <div className="text-sm font-semibold">{ABOUT.name}</div>
-        <div className="text-xs text-muted-foreground">{ABOUT.role}</div>
+        <div className="text-xs text-muted-foreground">{L(ABOUT.role)}</div>
       </div>
     </div>
   );
@@ -69,15 +73,18 @@ function Portrait() {
 
 export default function AboutMe() {
   const reduce = useReducedMotion();
+  const { language } = useLanguage();
+  const L = (v: Localized) => v[language];
+  const isEn = language === "en";
 
   useEffect(() => {
     const prev = document.title;
-    document.title = `À propos — KRAON`;
+    document.title = isEn ? "About — KRAON" : "À propos — KRAON";
     window.scrollTo(0, 0);
     return () => {
       document.title = prev;
     };
-  }, []);
+  }, [isEn]);
 
   const socialLinks = [
     ABOUT.socials.email && { href: `mailto:${ABOUT.socials.email}`, icon: Mail, label: "E-mail", external: false },
@@ -130,7 +137,7 @@ export default function AboutMe() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
               >
-                Un interlocuteur unique, <span className="gradient-text">du premier message à la livraison</span>.
+                {L(ABOUT.headline)} <span className="gradient-text">{L(ABOUT.headlineAccent)}</span>.
               </motion.h1>
 
               <motion.p
@@ -139,7 +146,7 @@ export default function AboutMe() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
               >
-                {ABOUT.tagline}
+                {L(ABOUT.tagline)}
               </motion.p>
             </div>
 
@@ -162,7 +169,7 @@ export default function AboutMe() {
                 transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
               >
                 {ABOUT.intro.map((p, i) => (
-                  <p key={i}>{p}</p>
+                  <p key={i}>{L(p)}</p>
                 ))}
               </motion.div>
 
@@ -176,7 +183,7 @@ export default function AboutMe() {
                   href="/offre"
                   className="group inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition-all glow-blue"
                 >
-                  Voir l'offre
+                  {isEn ? "See the offer" : "Voir l'offre"}
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
                 {socialLinks.length > 0 && (
@@ -205,20 +212,23 @@ export default function AboutMe() {
           <div className="mx-auto max-w-5xl">
             <Reveal className="mb-12 text-center">
               <h2 className="text-2xl font-bold sm:text-3xl">
-                Comment <span className="gradient-text">ça se passe</span>
+                {isEn ? "How " : "Comment "}
+                <span className="gradient-text">{isEn ? "it works" : "ça se passe"}</span>
               </h2>
-              <p className="mt-3 text-muted-foreground">Simple, transparent, sans jargon.</p>
+              <p className="mt-3 text-muted-foreground">
+                {isEn ? "Simple, transparent, no jargon." : "Simple, transparent, sans jargon."}
+              </p>
             </Reveal>
             <div className="space-y-4">
               {ABOUT.steps.map((step, i) => (
-                <Reveal key={step.title} delay={i * 0.06}>
+                <Reveal key={i} delay={i * 0.06}>
                   <div className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/40 sm:p-6">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-bold text-white">
                       {i + 1}
                     </div>
                     <div>
-                      <h3 className="font-semibold">{step.title}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{step.desc}</p>
+                      <h3 className="font-semibold">{L(step.title)}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">{L(step.desc)}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -232,19 +242,20 @@ export default function AboutMe() {
           <div className="mx-auto max-w-5xl">
             <Reveal className="mb-12 text-center">
               <h2 className="text-2xl font-bold sm:text-3xl">
-                Ce que ça <span className="gradient-text">change pour vous</span>
+                {isEn ? "What it " : "Ce que ça "}
+                <span className="gradient-text">{isEn ? "changes for you" : "change pour vous"}</span>
               </h2>
             </Reveal>
             <div className="grid gap-5 sm:grid-cols-2">
               {ABOUT.reasons.map((r, i) => (
-                <Reveal key={r.title} delay={(i % 2) * 0.08}>
+                <Reveal key={i} delay={(i % 2) * 0.08}>
                   <div className="flex h-full gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-primary/40">
                     <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
                       <Check className="h-3.5 w-3.5" />
                     </span>
                     <div>
-                      <h3 className="font-semibold">{r.title}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{r.desc}</p>
+                      <h3 className="font-semibold">{L(r.title)}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">{L(r.desc)}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -263,16 +274,18 @@ export default function AboutMe() {
                 aria-hidden="true"
               />
               <h2 className="text-2xl font-bold sm:text-3xl" style={{ textWrap: "balance" } as React.CSSProperties}>
-                On construit votre site ensemble ?
+                {isEn ? "Shall we build your site together?" : "On construit votre site ensemble ?"}
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-                Recevez une maquette gratuite de votre futur site, sans engagement.
+                {isEn
+                  ? "Get a free mockup of your future site, with no commitment."
+                  : "Recevez une maquette gratuite de votre futur site, sans engagement."}
               </p>
               <Link
                 href="/offre"
                 className="group mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-7 py-3.5 font-semibold text-primary-foreground transition-all hover:glow-blue"
               >
-                Découvrir l'offre
+                {isEn ? "See the offer" : "Découvrir l'offre"}
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>

@@ -2,12 +2,16 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, Sparkles, Gauge } from "lucide-react";
 
+import { useLanguage } from "@/lib/i18n";
+
 /**
  * Home-page banner driving visitors to the free scorecard tool (/audit-gratuit).
  * Single-goal, high-contrast, sits between the portfolio and the process.
  */
 export default function LeadMagnetCTA() {
   const reduce = useReducedMotion();
+  const { language } = useLanguage();
+  const isEn = language === "en";
 
   return (
     <section className="py-16">
@@ -34,13 +38,23 @@ export default function LeadMagnetCTA() {
           <div className="relative flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
-                <Sparkles className="h-3.5 w-3.5" /> Outil gratuit
+                <Sparkles className="h-3.5 w-3.5" /> {isEn ? "Free tool" : "Outil gratuit"}
               </span>
               <h2 className="mt-4 text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl" style={{ textWrap: "balance" } as React.CSSProperties}>
-                Votre site <span className="gradient-text">convertit-il</span> vraiment ?
+                {isEn ? (
+                  <>
+                    Is your website actually <span className="gradient-text">converting</span>?
+                  </>
+                ) : (
+                  <>
+                    Votre site <span className="gradient-text">convertit-il</span> vraiment ?
+                  </>
+                )}
               </h2>
               <p className="mt-3 text-muted-foreground sm:text-lg">
-                Faites le test en 60 secondes : obtenez votre score de performance digitale et un plan d'action personnalisé, gratuitement.
+                {isEn
+                  ? "Take the 60-second test: get your digital performance score and a tailored action plan, free of charge."
+                  : "Faites le test en 60 secondes : obtenez votre score de performance digitale et un plan d'action personnalisé, gratuitement."}
               </p>
             </div>
 
@@ -50,7 +64,7 @@ export default function LeadMagnetCTA() {
               data-testid="cta-audit-gratuit"
             >
               <Gauge className="h-5 w-5" />
-              Lancer mon audit
+              {isEn ? "Start my audit" : "Lancer mon audit"}
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>

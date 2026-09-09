@@ -4,7 +4,8 @@ import { Link, useLocation } from "wouter";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isEn = language === "en";
   const [location, setLocation] = useLocation();
 
   // Défile vers une section de l'accueil, y compris depuis une autre page
@@ -82,7 +83,7 @@ export default function Footer() {
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   data-testid="footer-nav-a-propos"
                 >
-                  À propos
+                  {isEn ? "About" : "À propos"}
                 </Link>
               </li>
               <li>
@@ -91,7 +92,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
                   data-testid="footer-nav-audit"
                 >
-                  <Sparkles className="h-3.5 w-3.5" /> Audit gratuit
+                  <Sparkles className="h-3.5 w-3.5" /> {isEn ? "Free audit" : "Audit gratuit"}
                 </Link>
               </li>
               {/* Pas de lien vers /offre ici : la landing de lancement reste
@@ -120,16 +121,18 @@ export default function Footer() {
         </motion.div>
 
         <div className="mt-12 pt-6 border-t border-border/50 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <p className="text-sm text-muted-foreground text-center md:text-left">{t("footer.rights")}</p>
+          <p className="text-sm text-muted-foreground text-center md:text-left">
+            © {new Date().getFullYear()} KRAON. {t("footer.rights")}
+          </p>
           <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
             <Link href="/mentions-legales" className="transition-colors hover:text-primary" data-testid="footer-mentions">
-              Mentions légales
+              {isEn ? "Legal notice" : "Mentions légales"}
             </Link>
             <Link href="/cgv" className="transition-colors hover:text-primary" data-testid="footer-cgv">
-              CGV
+              {isEn ? "Terms of sale" : "CGV"}
             </Link>
             <Link href="/confidentialite" className="transition-colors hover:text-primary" data-testid="footer-confidentialite">
-              Confidentialité
+              {isEn ? "Privacy policy" : "Confidentialité"}
             </Link>
           </nav>
         </div>

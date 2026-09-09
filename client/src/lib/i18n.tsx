@@ -117,7 +117,7 @@ const translations = {
     "footer.navTitle": "Navigation",
     "footer.ctaTitle": "Ready to grow?",
     "footer.cta": "Start a project",
-    "footer.rights": "© 2024 KRAON. All rights reserved."
+    "footer.rights": "All rights reserved."
   },
   fr: {
     // Header
@@ -225,7 +225,7 @@ const translations = {
     "footer.navTitle": "Navigation",
     "footer.ctaTitle": "Prêt à passer à l'action ?",
     "footer.cta": "Démarrer un projet",
-    "footer.rights": "© 2024 KRAON. Tous droits réservés."
+    "footer.rights": "Tous droits réservés."
   }
 };
 

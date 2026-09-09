@@ -3,6 +3,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, Tag, X } from "lucide-react";
 
+import { useLanguage } from "@/lib/i18n";
+
 /**
  * Notification flottante de l'offre de lancement, affichée sur la page
  * d'accueil uniquement.
@@ -17,6 +19,8 @@ const STORAGE_KEY = "kraon.offerBanner.dismissed";
 
 export default function OfferBanner() {
   const reduce = useReducedMotion();
+  const { language } = useLanguage();
+  const isEn = language === "en";
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -50,7 +54,7 @@ export default function OfferBanner() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-x-4 bottom-4 z-[55] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-sm"
           role="region"
-          aria-label="Offre de lancement"
+          aria-label={isEn ? "Launch offer" : "Offre de lancement"}
         >
           <div className="glass relative overflow-hidden rounded-2xl border border-primary/25 p-4 shadow-2xl">
             {/* Halo d'ambiance */}
@@ -61,7 +65,7 @@ export default function OfferBanner() {
             />
             <button
               onClick={dismiss}
-              aria-label="Fermer la notification"
+              aria-label={isEn ? "Close notification" : "Fermer la notification"}
               className="absolute right-2 top-2 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
               data-testid="offer-banner-close"
             >
@@ -70,13 +74,17 @@ export default function OfferBanner() {
 
             <div className="relative">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-accent">
-                <Tag className="h-3 w-3" /> Offre de lancement
+                <Tag className="h-3 w-3" /> {isEn ? "Launch offer" : "Offre de lancement"}
               </span>
               <p className="mt-2.5 pr-6 text-sm font-semibold leading-snug">
-                Votre site professionnel en ligne en 7 jours.
+                {isEn
+                  ? "Your professional website online in 7 days."
+                  : "Votre site professionnel en ligne en 7 jours."}
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
-                À partir de 450€ — réservé aux 20 premiers clients.
+                {isEn
+                  ? "From €450 — limited to the first 20 clients."
+                  : "À partir de 450€ — réservé aux 20 premiers clients."}
               </p>
               <Link
                 href="/offre"
@@ -84,7 +92,7 @@ export default function OfferBanner() {
                 className="group mt-3 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-all hover:glow-blue"
                 data-testid="offer-banner-link"
               >
-                Découvrir l'offre
+                {isEn ? "See the offer" : "Découvrir l'offre"}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
