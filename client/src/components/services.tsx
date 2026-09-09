@@ -1,6 +1,19 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Target, Zap, Search, Users, Palette, BarChart3, RotateCw, ArrowLeft, Check, type LucideIcon } from "lucide-react";
+import {
+  Palette,
+  RefreshCw,
+  Search,
+  Workflow,
+  Bot,
+  Plug,
+  Globe,
+  Cpu,
+  RotateCw,
+  ArrowLeft,
+  Check,
+  type LucideIcon,
+} from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 
 interface Service {
@@ -65,7 +78,11 @@ function FlipServiceCard({ service, flipHint, backLabel }: { service: Service; f
             </div>
             <h3 className="mb-2 text-xl font-semibold transition-colors group-hover:text-primary">{service.title}</h3>
             <p className="text-muted-foreground">{service.description}</p>
-            <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-medium text-primary/80">
+            <span
+              className={`mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-medium ${
+                isPrimary ? "text-primary/80" : "text-accent/80"
+              }`}
+            >
               <RotateCw className="h-3.5 w-3.5" /> {flipHint}
             </span>
           </div>
@@ -73,14 +90,18 @@ function FlipServiceCard({ service, flipHint, backLabel }: { service: Service; f
 
         {/* BACK */}
         <div
-          className={`${face} border border-primary/25 bg-gradient-to-br from-primary/10 to-accent/10`}
+          className={`${face} border ${
+            isPrimary ? "border-primary/25" : "border-accent/25"
+          } bg-gradient-to-br from-primary/10 to-accent/10`}
           style={{ ...backface, transform: "rotateY(180deg)" }}
         >
           <div className="flex h-full flex-col">
             <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-white">
               <Check className="h-5 w-5" />
             </div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-accent">{flipHint}</div>
+            <div className={`text-xs font-semibold uppercase tracking-wider ${isPrimary ? "text-primary" : "text-accent"}`}>
+              {flipHint}
+            </div>
             <p className="mt-2 text-lg font-medium leading-snug">{service.value}</p>
             <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs text-muted-foreground">
               <ArrowLeft className="h-3.5 w-3.5" /> {backLabel}
@@ -92,56 +113,127 @@ function FlipServiceCard({ service, flipHint, backLabel }: { service: Service; f
   );
 }
 
+/** Un pôle d'expertise : un titre de groupe puis ses trois cartes. */
+function SpecialtyGroup({
+  icon: GroupIcon,
+  label,
+  services,
+  flipHint,
+  backLabel,
+  accent,
+  indexOffset,
+}: {
+  icon: LucideIcon;
+  label: string;
+  services: Service[];
+  flipHint: string;
+  backLabel: string;
+  accent: "primary" | "accent";
+  indexOffset: number;
+}) {
+  return (
+    <div>
+      <motion.div
+        className="mb-6 flex items-center gap-3"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
+        <span
+          className={`flex h-10 w-10 items-center justify-center rounded-xl ${
+            accent === "primary" ? "bg-primary/15 text-primary" : "bg-accent/15 text-accent"
+          }`}
+        >
+          <GroupIcon className="h-5 w-5" />
+        </span>
+        <h3 className="text-xl font-bold sm:text-2xl">{label}</h3>
+        <span
+          className={`hidden h-px flex-1 sm:block ${
+            accent === "primary"
+              ? "bg-gradient-to-r from-primary/40 to-transparent"
+              : "bg-gradient-to-r from-accent/40 to-transparent"
+          }`}
+          aria-hidden="true"
+        />
+      </motion.div>
+
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((service, index) => (
+          <motion.div
+            key={service.title}
+            className="h-full"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: (indexOffset + index) * 0.06, ease: "easeOut" }}
+            viewport={{ once: true }}
+            data-testid={`service-${service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+          >
+            <FlipServiceCard service={service} flipHint={flipHint} backLabel={backLabel} />
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Services() {
   const { t, language } = useLanguage();
   const backLabel = language === "en" ? "Back" : "Retour";
+  const flipHint = t("services.flipHint");
 
-  const services: Service[] = [
-    { icon: Target, title: t("services.strategy.title"), description: t("services.strategy.desc"), value: t("services.strategy.value"), isPrimary: true },
-    { icon: Zap, title: t("services.ads.title"), description: t("services.ads.desc"), value: t("services.ads.value"), isPrimary: false },
-    { icon: Search, title: t("services.seo.title"), description: t("services.seo.desc"), value: t("services.seo.value"), isPrimary: true },
-    { icon: Users, title: t("services.content.title"), description: t("services.content.desc"), value: t("services.content.value"), isPrimary: false },
-    { icon: Palette, title: t("services.design.title"), description: t("services.design.desc"), value: t("services.design.value"), isPrimary: true },
-    { icon: BarChart3, title: t("services.analytics.title"), description: t("services.analytics.desc"), value: t("services.analytics.value"), isPrimary: false },
+  const web: Service[] = [
+    { icon: Palette, title: t("services.web1.title"), description: t("services.web1.desc"), value: t("services.web1.value"), isPrimary: true },
+    { icon: RefreshCw, title: t("services.web2.title"), description: t("services.web2.desc"), value: t("services.web2.value"), isPrimary: true },
+    { icon: Search, title: t("services.web3.title"), description: t("services.web3.desc"), value: t("services.web3.value"), isPrimary: true },
+  ];
+
+  const ai: Service[] = [
+    { icon: Workflow, title: t("services.ai1.title"), description: t("services.ai1.desc"), value: t("services.ai1.value"), isPrimary: false },
+    { icon: Bot, title: t("services.ai2.title"), description: t("services.ai2.desc"), value: t("services.ai2.value"), isPrimary: false },
+    { icon: Plug, title: t("services.ai3.title"), description: t("services.ai3.desc"), value: t("services.ai3.value"), isPrimary: false },
   ];
 
   return (
-    <section id="services" className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="bg-background py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="mb-16 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            {t("services.title").includes("Strategic") ? (
-              <>Strategic <span className="gradient-text">Services</span></>
-            ) : (
-              <>{t("services.title").split(" ").slice(0, -2).join(" ")} <span className="gradient-text">{t("services.title").split(" ").slice(-2).join(" ")}</span></>
-            )}
+          <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+            {t("services.title")} <span className="gradient-text">{t("services.titleAccent")}</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t("services.subtitle")}</p>
+          <p className="mx-auto max-w-2xl text-xl text-muted-foreground">{t("services.subtitle")}</p>
           <p className="mt-3 text-sm text-muted-foreground/80">
-            {language === "en" ? "Tap a card to see what it means for you." : "Cliquez sur une carte pour voir ce que ça vous apporte."}
+            {language === "en"
+              ? "Tap a card to see what it means for you."
+              : "Cliquez sur une carte pour voir ce que ça vous apporte."}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              className="h-full"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
-              viewport={{ once: true }}
-              data-testid={`service-${service.title.toLowerCase().replace(/\s+/g, "-")}`}
-            >
-              <FlipServiceCard service={service} flipHint={t("services.flipHint")} backLabel={backLabel} />
-            </motion.div>
-          ))}
+        <div className="space-y-16">
+          <SpecialtyGroup
+            icon={Globe}
+            label={t("services.group.web")}
+            services={web}
+            flipHint={flipHint}
+            backLabel={backLabel}
+            accent="primary"
+            indexOffset={0}
+          />
+          <SpecialtyGroup
+            icon={Cpu}
+            label={t("services.group.ai")}
+            services={ai}
+            flipHint={flipHint}
+            backLabel={backLabel}
+            accent="accent"
+            indexOffset={3}
+          />
         </div>
       </div>
     </section>

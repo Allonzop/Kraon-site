@@ -2,9 +2,12 @@ import type { LucideIcon } from "lucide-react";
 import { ShoppingBag, BarChart3, Building2, UtensilsCrossed, Gamepad2 } from "lucide-react";
 import type { Language } from "@/lib/i18n";
 
-import visionLogo from "@assets/Logo Tech Blanc_1758895568511.png";
-import capImage from "@assets/IMG_0371_1758895568511.jpeg";
-import previewVideo from "@assets/ScreenRecording_04-27-2025 01-51-19_1_1758895568511.mp4";
+// NOTE PERFORMANCE — les médias de « Wear the Vision » (projet masqué) ont été
+// retirés du bundle : ils pesaient ~16 Mo (vidéo 13,8 Mo, logo 1,8 Mo, photo
+// 0,5 Mo) construits et déployés à chaque build alors que le projet n'est pas
+// affiché. Les fichiers restent dans `attached_assets/`. Pour le réactiver :
+// réimporter les médias ici, les réaffecter dans l'entrée id 1, puis repasser
+// son `hidden` à false — en pensant à les optimiser d'abord pour le web.
 import pepiliyaLogo from "@assets/pepiliya-logo-beige.png";
 import pepiliyaHero from "@assets/pepiliya-hero.jpg";
 import pepiliyaPreview from "@assets/pepiliya-preview-full.jpg";
@@ -248,7 +251,6 @@ const allProjects: Project[] = [
     year: "2024",
     gradient: "from-primary/25 to-accent/20",
     icon: ShoppingBag,
-    logo: visionLogo,
     isPlaceholder: true,
     heroTagline: { fr: "Futur | Durable | Libre", en: "Future | Sustainable | Free" },
     description: {
@@ -268,7 +270,7 @@ const allProjects: Project[] = [
     ],
     showcases: [
       {
-        media: { kind: "video", src: previewVideo, poster: capImage },
+        media: { kind: "placeholder", aspect: "video" },
         title: { fr: "Navigation & Expérience", en: "Navigation & Experience" },
         desc: {
           fr: "Interface intuitive avec navigation fluide, mettant en valeur les produits durables à travers une expérience utilisateur soignée et des animations subtiles.",
@@ -281,11 +283,7 @@ const allProjects: Project[] = [
         ],
       },
       {
-        media: {
-          kind: "image",
-          src: capImage,
-          alt: { fr: "Casquette Wear the Vision", en: "Wear the Vision Cap" },
-        },
+        media: { kind: "placeholder", aspect: "square" },
         title: { fr: "Produit Premium", en: "Premium Product" },
         desc: {
           fr: "Casquettes durables fabriquées à partir de matières recyclées, alliant style moderne et engagement écologique. Design intemporel pour un public conscient.",
