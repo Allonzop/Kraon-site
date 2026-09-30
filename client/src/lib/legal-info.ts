@@ -26,7 +26,7 @@ export const LEGAL = {
   siren: "", // 9 chiffres — à ajouter dès l'immatriculation (obligatoire sur les mentions légales)
   siret: "", // 14 chiffres — à ajouter dès l'immatriculation
   rcs: "", // Ex. « Paris » si société commerciale ; vide sinon
-  adresse: "79 rue Émile Zola, 08000 Charleville-Mézières", // code postal / ville à confirmer
+  adresse: "79 rue Émile Zola, 08330 Vrigne-aux-Bois", // siège déclaré (corrigé le 30/09/2026)
   email: "allonzopensa@gmail.com",
   telephone: "", // à ajouter (obligatoire pour un vendeur en ligne — LCEN)
   directeurPublication: "", // Masqué tant que vide
@@ -43,7 +43,7 @@ export const LEGAL = {
   tribunalVille: "Charleville-Mézières", // Tribunal compétent (siège du Prestataire)
 
   // ------- Dates & versions -------
-  lastUpdated: "18 août 2026",
+  lastUpdated: "30 septembre 2026",
   cgvVersion: "1.0",
 
   // ------- Termes de la prestation (repris dans les CGV) -------
