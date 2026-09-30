@@ -2,7 +2,6 @@ import { motion, useReducedMotion, useMotionValue, useMotionTemplate, useSpring 
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n";
 import Magnetic from "@/components/effects/magnetic";
-import KraonLogo3D from "@/components/effects/kraon-logo-3d";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -33,7 +32,7 @@ export default function Hero() {
     <section
       id="hero"
       onMouseMove={handleMove}
-      className="relative min-h-screen flex items-center justify-center hero-bg overflow-hidden pt-20 pb-14 sm:pt-24 sm:pb-16"
+      className="relative min-h-screen flex items-center justify-center hero-bg overflow-hidden"
     >
       <div className="absolute inset-0 grid-pattern opacity-30" />
 
@@ -96,11 +95,6 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Logo 3D : assemblage joué une fois au chargement, puis tenu */}
-        <div className="mx-auto mb-4 w-40 sm:w-52 lg:w-60 [@media(max-height:700px)]:mb-2 [@media(max-height:700px)]:w-28 [@media(max-height:700px)]:sm:w-36">
-          <KraonLogo3D />
-        </div>
-
         {/* Eyebrow badge */}
         <motion.div
           className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full glass text-sm text-muted-foreground"
