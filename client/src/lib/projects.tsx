@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { ShoppingBag, BarChart3, Building2, UtensilsCrossed, Gamepad2 } from "lucide-react";
+import { ShoppingBag, BarChart3, Building2, UtensilsCrossed, Gamepad2, Home } from "lucide-react";
 import type { Language } from "@/lib/i18n";
 
 // NOTE PERFORMANCE — les médias de « Wear the Vision » (projet masqué) ont été
@@ -14,6 +14,8 @@ import pepiliyaPreview from "@assets/pepiliya-preview-full.jpg";
 import atmosphereLogo from "@assets/atmosphere-logo.png";
 import atmosphereHero from "@assets/atmosphere-hero.jpg";
 import atmospherePreview from "@assets/atmosphere-preview-full.jpg";
+import giteHero from "@assets/gite-saint-aubin-hero.jpg";
+import gitePreview from "@assets/gite-saint-aubin-preview-full.jpg";
 import datavizHero from "@assets/dataviz-hero.jpg";
 import datavizPreview from "@assets/dataviz-preview-full.jpg";
 
@@ -308,6 +310,68 @@ const allProjects: Project[] = [
       { fr: "Storytelling autour des valeurs écologiques", en: "Storytelling around ecological values" },
       { fr: "Parcours d'achat optimisé et intuitif", en: "Optimized and intuitive purchase journey" },
       { fr: "Stratégie de contenu engageante sur les réseaux", en: "Engaging content strategy on social networks" },
+    ],
+  },
+  {
+    id: 8,
+    title: "Gîte Saint-Aubin",
+    subtitle: { fr: "Gîte de charme en bord de Meuse", en: "Riverside holiday cottage" },
+    category: { fr: "Site vitrine & réservation directe", en: "Showcase & direct-booking site" },
+    result: {
+      fr: "Un site qui fait réserver en direct, sans commission de plateforme",
+      en: "A site that wins direct bookings, with no platform commission",
+    },
+    year: "2026",
+    url: "gitedecharmebordemeuse.fr",
+    gradient: "from-[#b4521f]/30 to-[#2b1712]/30",
+    icon: Home,
+    cardImage: giteHero,
+    heroImage: giteHero,
+    heroTagline: { fr: "Charleville-Mézières · Ardennes", en: "Charleville-Mézières · Ardennes" },
+    description: {
+      fr: "Claire Hugerot loue un gîte de charme 3 étoiles à Charleville-Mézières, et passait jusque-là par les plateformes de réservation. Nous avons conçu et développé son site : six pages entièrement bilingues français-anglais, pensées pour ses visiteurs belges et néerlandais, avec un formulaire de demande de dates qui lui amène des réservations en direct — sans commission prélevée sur chaque séjour.",
+      en: "Claire Hugerot runs a three-star holiday cottage in Charleville-Mézières and used to rely on booking platforms. We designed and built her site: six fully bilingual French-English pages aimed at her Belgian and Dutch visitors, with a date-request form that brings her direct bookings — with no commission taken on every stay.",
+    },
+    overviewHighlights: [
+      { fr: "Bilingue FR/EN sur l'intégralité du site", en: "Fully bilingual FR/EN throughout" },
+      { fr: "Demande de séjour en direct, sans intermédiaire", en: "Direct booking requests, no middleman" },
+      { fr: "49 photos optimisées, WebP avec repli JPEG", en: "49 optimised photos, WebP with JPEG fallback" },
+    ],
+    metrics: [
+      { value: "6", label: { fr: "pages, en français et en anglais", en: "pages, in French and English" } },
+      { value: "0 %", label: { fr: "de commission sur les réservations", en: "commission on bookings" } },
+      { value: "49", label: { fr: "photos retravaillées et optimisées", en: "photos reworked and optimised" } },
+      { value: "100%", label: { fr: "sur-mesure, sans template", en: "bespoke, no template" } },
+    ],
+    showcases: [
+      {
+        media: {
+          kind: "scrollPreview",
+          src: gitePreview,
+          alt: { fr: "Aperçu défilant du site du Gîte Saint-Aubin", en: "Scrolling preview of the Gîte Saint-Aubin website" },
+          url: "gitedecharmebordemeuse.fr",
+        },
+        title: { fr: "Le jardin d'abord, la réservation ensuite", en: "The garden first, the booking next" },
+        desc: {
+          fr: "La maison se vend par ses photos : grand jardin clos, terrasse, pièce de vie ouverte. Le site les met en pleine largeur, avec une typographie chaleureuse et un chemin de lecture qui mène sans détour au formulaire de demande de dates.",
+          en: "The house sells itself through its photographs: large walled garden, terrace, open living space. The site shows them full-width, with warm typography and a reading path that leads straight to the date-request form.",
+        },
+        highlights: [
+          { fr: "Palette terre et terracotta tirée des lieux", en: "Earth and terracotta palette drawn from the place" },
+          { fr: "Pages dédiées à la maison, au jardin et aux environs", en: "Dedicated pages for the house, garden and surroundings" },
+          { fr: "Avis clients et équipements en évidence", en: "Guest reviews and amenities made prominent" },
+        ],
+      },
+    ],
+    challenges: [
+      { fr: "Sortir de la dépendance aux plateformes de réservation", en: "Breaking free from booking-platform dependency" },
+      { fr: "Toucher une clientèle belge et néerlandaise", en: "Reaching Belgian and Dutch travellers" },
+      { fr: "Un site que la propriétaire puisse faire vivre sans technicien", en: "A site the owner can run without a developer" },
+    ],
+    solutions: [
+      { fr: "Demande de séjour en direct, traitée par formulaire", en: "Direct stay requests handled through a form" },
+      { fr: "Site intégralement bilingue, jusqu'aux textes alternatifs", en: "Fully bilingual site, down to the image alt text" },
+      { fr: "Pages statiques légères, hébergement autonome chez elle", en: "Light static pages, hosting she owns herself" },
     ],
   },
   {
