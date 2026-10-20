@@ -550,9 +550,16 @@ const allProjects: Project[] = [
 /** Projets visibles sur le site (exclut les entrées `hidden`). */
 export const projects: Project[] = allProjects.filter((p) => !p.hidden);
 
+/**
+ * Résout une fiche projet depuis l'URL `/project/:id`.
+ *
+ * Cherche dans `projects` et NON dans `allProjects` : un projet masqué doit
+ * rester introuvable même quand on devine son URL, sinon le retirer des listes
+ * ne le retire pas vraiment du site. La route rend alors la page « introuvable ».
+ */
 export function getProject(id: number | string | undefined): Project | undefined {
   const numericId = typeof id === "string" ? parseInt(id, 10) : id;
-  return allProjects.find((p) => p.id === numericId);
+  return projects.find((p) => p.id === numericId);
 }
 
 /** Resolve a Localized value for the active language. */
