@@ -8,6 +8,9 @@
     <title>KRAON — Création de sites internet pour artisans</title>
     <meta name="description" content="KRAON crée des sites internet sur-mesure pour les artisans : une vitrine professionnelle, rapide et soignée, qui met votre savoir-faire en valeur et vous apporte des clients." />
     <meta name="theme-color" content="#1a1a1a" />
+    <!-- Réécrit par route au build (scripts/gen-seo.mjs) : sans lui, les 7 URLs
+         se présentent à Google comme la même page. -->
+    <link rel="canonical" href="https://kraon.netlify.app/" />
     <link rel="icon" type="image/png" href="/media/logo.png" />
     <link rel="apple-touch-icon" href="/media/logo.png" />
 
@@ -16,17 +19,44 @@
     <meta property="og:site_name" content="KRAON" />
     <meta property="og:title" content="KRAON — Création de sites internet pour artisans" />
     <meta property="og:description" content="Des sites internet sur-mesure pour les artisans, qui mettent votre savoir-faire en valeur et vous apportent des clients." />
-    <meta property="og:image" content="/media/logo.png" />
+    <meta property="og:url" content="https://kraon.netlify.app/" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:image" content="https://kraon.netlify.app/media/og-kraon.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="KRAON — Création de sites internet pour artisans" />
     <meta name="twitter:description" content="Des sites internet sur-mesure pour les artisans, qui mettent votre savoir-faire en valeur." />
-    <meta name="twitter:image" content="/media/logo.png" />
+    <meta name="twitter:image" content="https://kraon.netlify.app/media/og-kraon.jpg" />
 
     <!-- Fonts: only Inter is used across the site -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Uniquement les graisses réellement utilisées (400/500/600/700) : 3 fichiers de police en moins. -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Données structurées. L'URL est réécrite au build par scripts/gen-seo.mjs.
+         Aucun SIREN ni téléphone tant qu'ils ne sont pas renseignés : une donnée
+         inventée ici se retrouve telle quelle dans les résultats Google. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "KRAON",
+      "url": "https://kraon.netlify.app/",
+      "image": "https://kraon.netlify.app/media/og-kraon.jpg",
+      "description": "Création de sites internet sur-mesure et automatisations IA pour les artisans et commerçants des Ardennes.",
+      "email": "allonzopensa@gmail.com",
+      "founder": { "@type": "Person", "name": "Allonzo Pensabene" },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Ardennes" },
+        { "@type": "City", "name": "Charleville-Mézières" },
+        { "@type": "City", "name": "Sedan" }
+      ],
+      "knowsAbout": ["Création de site internet", "Site vitrine", "Référencement local", "Automatisation IA"],
+      "priceRange": "€€"
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
